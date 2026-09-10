@@ -2080,6 +2080,25 @@ html,body{background:var(--app-bg)!important;}
   #today .extra-remove{width:28px!important;height:28px!important;min-width:28px!important;font-size:25px!important}
 }
 </style>
+<!-- Home Screen app configuration -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Наш рацион">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<style id="iphone-app-safe-area">
+@media (max-width:700px) {
+  .app { padding-bottom:calc(100px + env(safe-area-inset-bottom, 0px))!important; }
+  .mobile-bottom-nav {
+    bottom:calc(10px + env(safe-area-inset-bottom, 0px))!important;
+    padding:5px 6px!important;
+  }
+  .modal { padding-bottom:calc(10px + env(safe-area-inset-bottom, 0px)); }
+}
+</style>
+
 </head>
 <body>
 <main class="app">
