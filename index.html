@@ -2099,6 +2099,24 @@ html,body{background:var(--app-bg)!important;}
 }
 </style>
 
+<style id="mobile-product-form-fix">
+/* Dialogs must cover the fixed mobile navigation, including its touch targets. */
+.modal { z-index:10000!important; }
+.modal .sheet { overscroll-behavior:contain; }
+@media (max-width:700px) {
+  .modal .sheet {
+    max-height:calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    -webkit-overflow-scrolling:touch;
+  }
+  #catalogEditModal .grid2, #productModal .grid2 {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  #catalogEditModal input, #productModal input { min-width:0; font-size:16px; }
+  #catalogEditModal .sheetHead h2, #productModal .sheetHead h2 { font-size:23px; }
+  #saveCatalogProduct, #saveProduct { min-height:48px; }
+}
+</style>
+
 </head>
 <body>
 <main class="app">
