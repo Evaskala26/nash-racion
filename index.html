@@ -2197,6 +2197,18 @@ html,body{background:var(--app-bg)!important;}
 }
 
 </style>
+<style id="day-navigation-style">
+/* Calendar navigation retains the green Today header and 44px touch targets. */
+#today .today-date-nav{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:6px}
+#today .today-date-nav .today-date{margin:0!important;font-size:17px!important;line-height:1.35!important;font-variant-numeric:tabular-nums}
+#today .day-arrow{display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:10px;border:1px solid #ffffff24;border-radius:14px;background:#ffffff0c;color:#f0f3dd;cursor:pointer;touch-action:manipulation}
+#today .day-arrow svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#today .day-arrow:active{background:#ffffff26}
+#today .return-today{min-height:36px;margin:5px auto 0;padding:6px 12px;border:0;border-radius:10px;background:#ffffff12;color:#e8f1dc;font:inherit;font-size:12px;cursor:pointer}
+#today .return-today[hidden]{display:none!important}
+#today .day-arrow:focus-visible,#today .return-today:focus-visible{outline:2px solid #edf4d9;outline-offset:2px}
+@media(max-width:350px){#today .today-date-nav{gap:3px}#today .today-date-nav .today-date{font-size:15px!important}}
+</style>
 </head>
 <body>
 <main class="app">
@@ -2216,11 +2228,14 @@ html,body{background:var(--app-bg)!important;}
         <button type="button" class="btn" id="personFa" data-person="husband" onclick="window.switchPerson('husband')">Фа</button>
       </div>
     </div>
-    <div class="today-head"><div>
-      <div class="today-date" id="todayDate">Сегодня</div>
-      <div class="today-greeting" id="todayGreeting">Добрый день, Пи</div>
-    </div></div>
-  <div class="today-main-card nutrition-overview" id="todayMainCard">
+    <div class="today-head">
+      <div class="today-date-nav">
+        <button type="button" class="day-arrow" id="previousDay" aria-label="Предыдущий день" onclick="changeDiaryDay(-1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
+        <div class="today-date" id="todayDate" aria-live="polite" aria-atomic="true">Сегодня</div>
+        <button type="button" class="day-arrow" id="nextDay" aria-label="Следующий день" onclick="changeDiaryDay(1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
+      </div>
+      <button type="button" class="return-today" id="returnToday" hidden onclick="returnToToday()">К сегодняшнему дню</button>
+    </div>  <div class="today-main-card nutrition-overview" id="todayMainCard">
     <div class="nutrition-ring-card">
       <div class="hero-side"><span>Съедено</span><strong id="todayKcal">0</strong><small>ккал</small></div>
       <div class="nutrition-ring-wrap">
@@ -2506,7 +2521,7 @@ state.currentWeekStart=state.currentWeekStart||weekStartISO(new Date());
 state.weekHistory.forEach(w=>{if(!w.startDate)w.startDate=w.createdAt?weekStartISO(w.createdAt):state.currentWeekStart;});
 state.purchased=state.purchased&&typeof state.purchased==="object"?state.purchased:{};
 if(!state.purchased[state.currentWeekId])state.purchased[state.currentWeekId]={};
-if(!Array.isArray(state.week)||state.week.length!==7||state.week.every(d=>!Array.isArray(d)||d.filter(Boolean).length===0)){
+if(!Array.isArray(state.week)||state.week.length!==7){
   state.week=clone(initialWeek);
   save();
 }
@@ -2522,7 +2537,47 @@ function save(){
 }
 function allRecipes(){const curated=CURATED_RECIPES.map(r=>({...r,...(state.overrides[r.id]||{})}));const custom=(state.custom||[]).filter(r=>r&&r.image);return [...curated,...custom]}
 function byId(id){return allRecipes().find(r=>r.id===id)}
-function todayIndex(){const d=new Date().getDay();return d===0?6:d-1}
+function todayIndex(dateLike=new Date()){const d=new Date(dateLike).getDay();return d===0?6:d-1}
+function localDateISO(dateLike=new Date()){
+ const d=new Date(dateLike);
+ return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
+}
+function diaryDayISO(iso,offset){const d=new Date(iso+"T12:00:00");d.setDate(d.getDate()+offset);return localDateISO(d)}
+let selectedDiaryDate=localDateISO();
+function emptyDiaryDay(){return {eaten:{you:[null,null,null,null],husband:[null,null,null,null]},extras:{you:[],husband:[]}}}
+function diaryDay(iso=selectedDiaryDate){
+ if(!state.diaryByDate[iso])state.diaryByDate[iso]=emptyDiaryDay();
+ return state.diaryByDate[iso];
+}
+function diaryPlan(iso=selectedDiaryDate){
+ const date=new Date(iso+"T12:00:00"),start=weekStartISO(date);
+ const week=start===state.currentWeekStart?state.week:state.weekHistory.find(w=>w.startDate===start)?.week;
+ return Array.from({length:4},(_,i)=>week?.[todayIndex(date)]?.[i]||null);
+}
+function migrateDailyDiary(){
+ if(state.diaryByDate&&typeof state.diaryByDate==="object"&&!Array.isArray(state.diaryByDate))return;
+ state.diaryByDate={};
+ const entry=emptyDiaryDay(),legacyDay=state.week?.[todayIndex()]||[];
+ for(const who of ["you","husband"]){
+  entry.extras[who]=clone(Array.isArray(state.extras?.[who])?state.extras[who]:[]);
+  entry.eaten[who]=Array.from({length:4},(_,i)=>{
+   const recipe=state.eaten?.[who]?.[i]&&byId(legacyDay[i]);
+   return recipe?diaryMealSnapshot(recipe,who):null;
+  });
+ }
+ state.diaryByDate[localDateISO()]=entry;
+ save();
+}
+function diaryMealSnapshot(recipe,who){
+ // Keep nutrition as it was when eaten, without duplicating large recipe images.
+ return {id:recipe.id,name:recipe.name,category:recipe.category,nutrition:{[who]:nutrition(recipe,who)}};
+}
+function diaryRecipe(entry,day,who,i){
+ const eaten=entry.eaten[who][i];
+ return eaten?{...eaten,image:byId(eaten.id)?.image}:byId(day[i]);
+}
+function changeDiaryDay(offset){selectedDiaryDate=diaryDayISO(selectedDiaryDate,offset);renderToday()}
+function returnToToday(){selectedDiaryDate=localDateISO();renderToday()}
 function planned(r,who){const map={"Завтраки":{you:[360,24,12,40,320],husband:[520,34,17,58,450]},"Курица и индейка":{you:[430,42,13,38,380],husband:[650,58,19,62,540]},"Говядина":{you:[450,38,17,38,380],husband:[680,52,24,65,540]},"Рыба и морепродукты":{you:[420,36,15,36,360],husband:[640,50,22,60,520]},"Перекусы и сладкое":{you:[220,18,7,22,220],husband:[320,24,10,34,300]}};const a=(map[r.category]||map["Курица и индейка"])[who];return{k:a[0],b:a[1],f:a[2],c:a[3],grams:a[4]}}
 function nutrition(r,who){const n=r?.nutrition?.[who];if(n)return{k:+(n.kcal??n.k??0),b:+(n.protein??n.b??0),f:+(n.fat??n.f??0),c:+(n.carbs??n.c??0),grams:+(n.grams??0)};return planned(r,who)}
 function openModal(id){document.getElementById(id).classList.add("open")}function closeModal(id){document.getElementById(id).classList.remove("open")}
@@ -2548,34 +2603,30 @@ window.switchPerson=function(w){
 
 
 window.toggleEat=function(who,i){
-  who=(who==="husband")?"husband":"you";
-  i=Number(i);
-  if(!state.eaten) state.eaten={you:[false,false,false,false],husband:[false,false,false,false]};
-  if(!Array.isArray(state.eaten[who])) state.eaten[who]=[false,false,false,false];
-  state.eaten[who][i]=!state.eaten[who][i];
-  save();
-  renderToday();
+ who=who==="husband"?"husband":"you";i=Number(i);
+ if(!Number.isInteger(i)||i<0||i>3)return;
+ const entry=diaryDay(),recipe=byId(diaryPlan()[i]);
+ if(entry.eaten[who][i])entry.eaten[who][i]=null;
+ else if(recipe)entry.eaten[who][i]=diaryMealSnapshot(recipe,who);
+ save();renderToday();
 };
-
 window.deleteExtra=function(who,i){
-  who=(who==="husband")?"husband":"you";
-  i=Number(i);
-  if(Array.isArray(state.extras?.[who])) state.extras[who].splice(i,1);
-  save();
-  renderToday();
+ who=who==="husband"?"husband":"you";
+ diaryDay().extras[who].splice(Number(i),1);save();renderToday();
 };
+migrateDailyDiary();
 
 let todayPerson="you";
 function renderToday(){
- const di=todayIndex();
- let day=Array.isArray(state.week?.[di])?state.week[di]:[];
- if(day.length<4 || day.filter(Boolean).some(id=>!byId(id))) day=clone(initialWeek[di]||[]);
- const dateText=new Date().toLocaleDateString("ru-RU",{weekday:"short",day:"numeric",month:"long"}).replace(/^./,c=>c.toUpperCase());
+ const day=diaryPlan(),entry=diaryDay();
+ const date=new Date(selectedDiaryDate+"T12:00:00"),now=localDateISO();
+ const prefix=selectedDiaryDate===now?"Сегодня":selectedDiaryDate===diaryDayISO(now,-1)?"Вчера":selectedDiaryDate===diaryDayISO(now,1)?"Завтра":"";
+ const dateText=date.toLocaleDateString("ru-RU",{weekday:"short",day:"numeric",month:"long",...(date.getFullYear()!==new Date().getFullYear()?{year:"numeric"}:{})}).replace(/^./,c=>c.toUpperCase());
  const who=todayPerson,target=who==="you"?1500:2300;
  const macroTargets=who==="you"?{b:110,f:55,c:140}:{b:169,f:85,c:215};
 
- document.getElementById("todayDate").textContent=`Сегодня, ${dateText}`;
- document.getElementById("todayGreeting").textContent=`Добрый день, ${who==="you"?"Пи":"Фа"}`;
+ document.getElementById("todayDate").textContent=prefix?`${prefix}, ${dateText}`:dateText;
+ document.getElementById("returnToday").hidden=selectedDiaryDate===now;
  document.getElementById("todayPersonLabel").textContent=who==="you"?"Пи":"Фа";
  document.getElementById("todayTarget").textContent=target;
  const myK=document.getElementById("myK"), hisK=document.getElementById("hisK"); if(myK)myK.textContent=""; if(hisK)hisK.textContent="";
@@ -2583,19 +2634,19 @@ function renderToday(){
  const icons=["🍳","🍗","🥣","🍽️"],times=["08:30","13:00","16:30","19:30"];
  const host=document.getElementById("todayMeals");
  host.innerHTML=day.slice(0,4).map((id,i)=>{
-   const r=byId(id);
+   const r=diaryRecipe(entry,day,who,i);
    if(!r)return`<div class="today-meal"><div class="meal-photo meal-photo-empty">${icons[i]}</div><div><div class="meal-time">${times[i]} · ${TYPES[i]}</div><div class="meal-name muted">Блюдо не выбрано</div></div></div>`;
-   const n=nutrition(r,who),eaten=!!state.eaten?.[who]?.[i];
+   const n=nutrition(r,who),eaten=!!entry.eaten?.[who]?.[i];
    const photo=r.image?`<img src="${r.image}" alt="${r.name.replace(/"/g,'&quot;')}" loading="lazy">`:icons[i];
    return`<div class="today-meal"><div class="meal-photo ${r.image?"has-photo":"meal-photo-empty"}">${photo}</div><div><div class="meal-time">${times[i]} · ${TYPES[i]}</div><div class="meal-name">${r.name}</div><div class="meal-nutrition">${n.k} ккал · Б ${n.b} · Ж ${n.f} · У ${n.c} · ${n.grams} г</div></div><button type="button" class="eat-check ${eaten?"is-eaten":""}" aria-label="${eaten?"Отметить как не съедено":"Отметить как съедено"}" title="${eaten?"Съедено":"Отметить как съедено"}" onclick="window.toggleEat('${who}',${i})">✓</button></div>`;
  }).join("");
 
- const extras=state.extras?.[who]||[],eh=document.getElementById("todayExtras");
+ const extras=entry.extras?.[who]||[],eh=document.getElementById("todayExtras");
  eh.innerHTML=extras.length?extras.map((x,i)=>`<div class="today-meal"><div class="meal-icon">＋</div><div><div class="meal-name">${x.name}</div><div class="meal-nutrition">${x.k} ккал · Б ${x.b} · Ж ${x.f} · У ${x.c}</div></div><button type="button" class="extra-remove" aria-label="Удалить ${x.name.replace(/"/g,'&quot;')}" title="Удалить" onclick="window.deleteExtra('${who}',${i})">×</button></div>`).join(""):'<div class="muted" style="padding:12px 0">Пока ничего не добавлено</div>';
- eh.querySelectorAll("[data-del-new]").forEach(b=>b.onclick=()=>{const[w,i]=b.dataset.delNew.split("-");state.extras[w].splice(+i,1);save();renderToday()});
+ eh.querySelectorAll("[data-del-new]").forEach(b=>b.onclick=()=>{const[w,i]=b.dataset.delNew.split("-");entry.extras[w].splice(+i,1);save();renderToday()});
 
  let t={k:0,b:0,f:0,c:0};
- day.slice(0,4).forEach((id,i)=>{const r=byId(id);if(r&&state.eaten?.[who]?.[i]){const n=nutrition(r,who);t.k+=n.k;t.b+=n.b;t.f+=n.f;t.c+=n.c}});
+ day.slice(0,4).forEach((id,i)=>{const r=diaryRecipe(entry,day,who,i);if(r&&entry.eaten?.[who]?.[i]){const n=nutrition(r,who);t.k+=n.k;t.b+=n.b;t.f+=n.f;t.c+=n.c}});
  extras.forEach(x=>{t.k+=+x.k||0;t.b+=+x.b||0;t.f+=+x.f||0;t.c+=+x.c||0});
  const over=t.k>target;
  setFrogImage(".standalone-frog", over ? FROG_ASSETS.angry : FROG_ASSETS.calm);
@@ -2639,7 +2690,7 @@ function renderCatalog(){
   </div>`).join("");
  list.querySelectorAll("[data-addp]").forEach(b=>b.onclick=()=>{
   const p=state.products.find(x=>x.id===b.dataset.addp); if(!p)return;
-  state.extras[b.dataset.who].push({name:p.name,k:p.k,b:p.b,f:p.f,c:p.c});
+  diaryDay().extras[b.dataset.who].push({name:p.name,k:p.k,b:p.b,f:p.f,c:p.c});
   save(); renderToday(); renderCatalog();
  });
  list.querySelectorAll("[data-editp]").forEach(b=>b.onclick=()=>openCatalogEditor(b.dataset.editp));
@@ -2654,7 +2705,7 @@ function showProduct(who,kind){openCatalog()}
 if(state.coffeePreset && state.coffeePreset.name!=="☕ Кофе с молоком"){state.coffeePreset.name="☕ Кофе с молоком";save();}
 document.getElementById("createProduct")?.addEventListener("click",()=>openCatalogEditor());
 document.getElementById("catalogCreate")?.addEventListener("click",()=>openCatalogEditor());
-saveProduct.onclick=()=>{const item={name:pName.value.trim(),k:+pK.value,b:+pB.value,f:+pF.value,c:+pC.value};if(!item.name||[item.k,item.b,item.f,item.c].some(x=>!Number.isFinite(x))){alert("Заполните название и все КБЖУ.");return}state.extras[productTarget].push(item);save();closeModal("productModal");renderToday()};
+saveProduct.onclick=()=>{const item={name:pName.value.trim(),k:+pK.value,b:+pB.value,f:+pF.value,c:+pC.value};if(!item.name||[item.k,item.b,item.f,item.c].some(x=>!Number.isFinite(x))){alert("Заполните название и все КБЖУ.");return}diaryDay().extras[productTarget].push(item);save();closeModal("productModal");renderToday()};
 saveCatalogProduct.onclick=()=>{const item={name:cpName.value.trim(),k:+cpK.value,b:+cpB.value,f:+cpF.value,c:+cpC.value};if(!item.name||[item.k,item.b,item.f,item.c].some(x=>!Number.isFinite(x))){alert("Заполните название и все КБЖУ.");return}if(catalogEditId){const p=state.products.find(x=>x.id===catalogEditId);if(p)Object.assign(p,item)}else state.products.push({id:"P"+Date.now(),...item});save();closeModal("catalogEditModal");renderCatalog()};
 let replaceTarget=null,replaceFilter="all";
 function allowed(r,type){if(type==="завтрак")return r.category==="Завтраки";if(type==="перекус")return r.category==="Перекусы и сладкое";return["Курица и индейка","Говядина","Рыба и морепродукты"].includes(r.category)}
