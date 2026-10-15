@@ -1,0 +1,36 @@
+name: Publish nash-racion images
+
+on:
+  push:
+    branches: [main]
+
+env:
+  CR_URI: nash-racion-ai.cr.cloud.ru
+  BRIDGE_IMAGE: nash-racion-ai.cr.cloud.ru/nash-racion-bridge:latest
+  HERMES_IMAGE: nash-racion-ai.cr.cloud.ru/hermes-agent:latest
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.CR_URI }}
+          username: ${{ secrets.EVO_CR_LOGIN }}
+          password: ${{ secrets.EVO_CR_PWD }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          tags: ${{ env.BRIDGE_IMAGE }}
+
+      - run: |
+          docker pull nousresearch/hermes-agent:latest
+          docker tag nousresearch/hermes-agent:latest "$HERMES_IMAGE"
+          docker push "$HERMES_IMAGE"
