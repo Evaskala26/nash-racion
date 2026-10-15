@@ -2738,6 +2738,30 @@ textarea{
 #progress .energy-periods{display:grid;grid-template-columns:1fr 1fr;gap:10px}.energy-period-card{padding:14px;border:1px solid #e4ddd2;border-radius:17px;background:#f5f0e6}.energy-period-card h4{margin:0 0 10px;color:#315b46;font-size:14px}.energy-period-card>div{display:flex;align-items:baseline;justify-content:space-between;gap:9px;padding:7px 0;border-top:1px solid #e2dbcf}.energy-period-card span{color:#6d7972;font-size:11px}.energy-period-card strong{color:#173f2d;font-size:17px;white-space:nowrap}.energy-period-card small{font-size:9px;font-weight:700}.energy-explainer{margin:12px 0 0;color:#748078;font-size:10px;line-height:1.45}.energy-explainer b{color:#496457}
 @media(max-width:430px){#today .hero-brand{height:58px;gap:7px}#today .hero-brand .brand-mark-image{width:50px;height:50px;flex-basis:50px}#today .hero-brand .brand-wordmark{font-size:14px;letter-spacing:.7px}.settings-shell{padding:20px 15px 28px}.settings-head h1{font-size:28px}.settings-brand-card{min-height:82px;padding:10px 14px;gap:10px}.settings-brand-card .settings-brand-mark{width:60px;height:60px;flex-basis:60px}.settings-brand-card .settings-brand-wordmark{font-size:20px;letter-spacing:1px}.settings-card{padding:16px;border-radius:19px}.settings-card-head h2{font-size:20px}.settings-goal-grid{gap:8px}.settings-goal-grid input{height:45px}.progress-shell .energy-overview{padding:16px!important;border-radius:19px!important}.energy-periods{grid-template-columns:1fr!important}.energy-period-card{padding:12px}.energy-overview-head{align-items:center!important}}
 </style>
+
+<style id="ai-chat-v2">
+#aiAssistantModal{padding:0!important;align-items:flex-end!important}
+#aiAssistantModal .ai-sheet{display:flex;flex-direction:column;width:min(640px,100%)!important;height:min(760px,92dvh);max-height:92dvh!important;padding:0!important;border-radius:28px 28px 0 0!important;background:#f5f0e6!important;overflow:hidden!important}
+#aiAssistantModal .sheetHead{flex:0 0 auto;margin:0;padding:17px 17px 13px;border-bottom:1px solid #e2dbcf;background:rgba(250,247,239,.96)}
+.ai-chat-title{display:flex;align-items:center;gap:10px}.ai-chat-avatar{display:grid;place-items:center;width:43px;height:43px;overflow:hidden;border-radius:50%;background:#176b46}.ai-chat-avatar img{width:132%;max-width:none;transform:translate(1px,1px)}
+.ai-chat-title h2{color:#173f2d!important;font-size:22px!important}.ai-chat-title span{display:block;margin-top:2px;color:#708078;font-size:10px;font-weight:400}
+.ai-chat-close{display:grid!important;place-items:center;width:38px;height:38px;padding:0!important;border-radius:50%!important;font-size:22px!important}
+.ai-chat-messages{flex:1 1 auto;display:flex;flex-direction:column;gap:10px;min-height:0;padding:16px 14px 20px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.ai-chat-message{display:flex;flex-direction:column;max-width:86%;animation:aiBubbleIn .18s ease both}.ai-chat-message.user{align-self:flex-end;align-items:flex-end}.ai-chat-message.assistant{align-self:flex-start;align-items:flex-start}
+.ai-chat-bubble{padding:11px 13px;border:1px solid #e3dbcf;border-radius:17px 17px 17px 5px;background:#fffaf3;color:#173126;font-size:14px;line-height:1.42;box-shadow:0 3px 10px rgba(50,60,52,.035);white-space:normal;overflow-wrap:anywhere}
+.ai-chat-message.user .ai-chat-bubble{border-color:#247b55;border-radius:17px 17px 5px 17px;background:#247b55;color:#fff}
+.ai-chat-time{margin:4px 5px 0;color:#8a948e;font-size:9px}.ai-chat-photo-note{display:block;margin-top:6px;font-size:11px;font-weight:700;opacity:.86}
+.ai-chat-typing{display:inline-flex;gap:4px;align-items:center;min-width:54px}.ai-chat-typing i{width:6px;height:6px;border-radius:50%;background:#6d8e7a;animation:aiTyping 1s infinite}.ai-chat-typing i:nth-child(2){animation-delay:.15s}.ai-chat-typing i:nth-child(3){animation-delay:.3s}
+.ai-chat-suggestions{flex:0 0 auto;display:flex;gap:7px;padding:0 14px 10px;overflow-x:auto;scrollbar-width:none}.ai-chat-suggestions::-webkit-scrollbar{display:none}.ai-chat-suggestion{flex:0 0 auto;padding:8px 11px;border:1px solid #cfded3;border-radius:999px;background:#edf5ef;color:#216749;font:700 11px 'RetracM',Georgia,serif;cursor:pointer}
+.ai-chat-photo-draft{display:none;position:relative;flex:0 0 auto;align-items:center;gap:9px;margin:0 14px 9px;padding:8px 38px 8px 8px;border:1px solid #cfe0d5;border-radius:14px;background:#edf5ef;color:#315b46;font-size:11px}.ai-chat-photo-draft.visible{display:flex}.ai-chat-photo-draft img{width:48px;height:48px;border-radius:10px;object-fit:cover}.ai-chat-photo-remove{position:absolute;right:8px;top:50%;width:26px;height:26px;transform:translateY(-50%);border:0;border-radius:50%;background:#fffaf3;color:#6a756f;font-size:17px;cursor:pointer}
+.ai-chat-composer{flex:0 0 auto;display:grid;grid-template-columns:42px minmax(0,1fr) 44px;gap:8px;align-items:end;padding:10px 12px calc(11px + env(safe-area-inset-bottom,0px));border-top:1px solid #e2dbcf;background:#fbf8f1}
+.ai-chat-attach{display:grid;place-items:center;width:42px;height:42px;border:1px solid #d6ded8;border-radius:13px;background:#fffaf3;color:#247b55;font-size:24px;cursor:pointer}.ai-chat-attach input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+#aiPrompt{width:100%;min-height:42px;max-height:116px;padding:10px 12px!important;resize:none;border:1px solid #ded8ce!important;border-radius:14px!important;background:#fffaf3!important;color:#173126;font:14px/1.35 'RetracM',Georgia,serif;outline:none}#aiPrompt:focus{border-color:#70a98a!important;box-shadow:0 0 0 3px #dceee3!important}
+#aiContinueButton{display:grid;place-items:center;width:44px;height:42px;padding:0;border:0;border-radius:13px;background:#247b55;color:#fff;font-size:20px;cursor:pointer}#aiContinueButton:disabled{opacity:.45;cursor:default}
+.ai-chat-status{position:absolute;left:-9999px}
+@keyframes aiBubbleIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}@keyframes aiTyping{0%,70%,100%{transform:translateY(0);opacity:.45}35%{transform:translateY(-3px);opacity:1}}
+@media(max-width:430px){#aiAssistantModal .ai-sheet{height:94dvh;max-height:94dvh!important;border-radius:23px 23px 0 0!important}.ai-chat-message{max-width:91%}.ai-chat-messages{padding-left:11px;padding-right:11px}.ai-chat-suggestions{padding-left:11px;padding-right:11px}.ai-chat-composer{padding-left:10px;padding-right:10px}}
+</style>
 </head>
 <body>
 <main class="app">
@@ -3124,29 +3148,18 @@ textarea{
 <div class="modal ai-modal" id="aiAssistantModal">
   <div class="sheet ai-sheet">
     <div class="sheetHead">
-      <h2 id="aiAssistantTitle" style="margin:0">Помощник</h2>
-      <button class="btn" type="button" data-close="aiAssistantModal">Закрыть</button>
+      <div class="ai-chat-title"><div class="ai-chat-avatar"><img src="frog-ai-button.png?v=4" alt=""></div><div><h2 id="aiAssistantTitle" style="margin:0">Помощник</h2><span>Может менять данные приложения</span></div></div>
+      <button class="btn ai-chat-close" type="button" data-close="aiAssistantModal" aria-label="Закрыть">×</button>
     </div>
-    <div class="ai-intro" id="aiAssistantIntro">Добавьте фото и/или напишите своими словами, что нужно сделать.</div>
-    <label class="ai-context-label">Куда внести результат</label>
-    <div class="ai-context-grid" id="aiContextGrid"></div>
-    <div class="ai-context-pill"><span>✦</span><span id="aiContextLabel">Сегодня</span></div>
-    <div class="ai-workspace">
-      <div class="ai-photo-box active" id="aiPhotoBox">
-        <label class="ai-photo-label">📷 Сфотографировать или выбрать фото<input id="aiPhotoInput" type="file" accept="image/*" capture="environment"></label>
-        <img class="ai-photo-preview" id="aiPhotoPreview" alt="Выбранное фото">
-      </div>
-      <label class="ai-field-label" id="aiPromptLabel" for="aiPrompt">Что нужно сделать?</label>
-      <textarea class="ai-prompt" id="aiPrompt" placeholder="Напишите обычной фразой"></textarea>
-      <div class="ai-helper-line">Можно отправить только фото, только описание или всё вместе.</div>
-      <div class="ai-examples" id="aiExamples"></div>
-      <div class="ai-status" id="aiStatus" aria-live="polite"></div>
+    <div class="ai-chat-messages" id="aiChatMessages" aria-live="polite"></div>
+    <div class="ai-chat-suggestions" id="aiExamples"></div>
+    <div class="ai-chat-photo-draft" id="aiPhotoDraft"><img id="aiPhotoPreview" alt="Выбранное фото"><span>Фото прикреплено к следующему сообщению</span><button type="button" class="ai-chat-photo-remove" id="aiPhotoRemove" aria-label="Убрать фото">×</button></div>
+    <div class="ai-chat-composer">
+      <label class="ai-chat-attach" aria-label="Сфотографировать или выбрать фото">＋<input id="aiPhotoInput" type="file" accept="image/*" capture="environment"></label>
+      <textarea id="aiPrompt" rows="1" placeholder="Напишите, что сделать…"></textarea>
+      <button type="button" id="aiContinueButton" aria-label="Отправить">➤</button>
     </div>
-    <div class="ai-footer">
-      <button type="button" class="ai-secondary" id="aiManualButton">Открыть раздел</button>
-      <button type="button" class="ai-primary" id="aiContinueButton">Подготовить черновик</button>
-    </div>
-    <div class="ai-connection-note">Результат откроется для проверки и редактирования. Распознавание фото и свободных запросов будет работать после подключения ИИ.</div>
+    <div class="ai-chat-status" id="aiStatus" aria-live="polite"></div>
   </div>
 </div>
 <script>
@@ -3998,90 +4011,112 @@ function checkMedicationAlerts(){
 setInterval(checkMedicationAlerts,30000);setTimeout(checkMedicationAlerts,1200);
 
 function normalizeAIContext(context){return context==="product"?"today":context==="dish"?"dishes":context==="shopping"?"shop":context}
-function openAIFloatingAssistant(){
- const page=document.querySelector(".page.active")?.id||"today";
- openAIAssistant(page);
-}
+function openAIFloatingAssistant(){const page=document.querySelector(".page.active")?.id||"today";openAIAssistant(page)}
 window.openAIFloatingAssistant=openAIFloatingAssistant;
-const AI_CONTEXT_ORDER=["today","week","progress","dishes","shop","medication"];
-const AI_CONTEXTS={
- today:{label:"Сегодня",icon:"◫",intro:"Добавить продукт или еду в сегодняшний дневник.",placeholder:"Например: добавь банан 120 г, 105 ккал",examples:["Добавь банан 120 г","Посчитай КБЖУ по фото","Добавь мой перекус"]},
- week:{label:"Неделя",icon:"▣",intro:"Составить или изменить меню на неделю.",placeholder:"Например: составь лёгкое меню на следующую неделю",examples:["Составь меню на неделю","Сделай больше рыбы","Замени два ужина"]},
- progress:{label:"Прогресс",icon:"⌁",intro:"Записать вес и параметры тела.",placeholder:"Например: вес 64,5, талия 70, бёдра 96",examples:["Вес 64,5 кг","Вес 64,5, талия 70","Добавь замеры по фото"]},
- dishes:{label:"Блюда",icon:"♜",intro:"Создать новое блюдо по фото или описанию.",placeholder:"Например: лёгкая паста с курицей и овощами",examples:["Омлет с овощами","Салат с тунцом","Рецепт по фото"]},
- shop:{label:"Покупки",icon:"▱",intro:"Добавить продукты в список покупок.",placeholder:"Например: добавь молоко 2 л в покупки",examples:["Молоко 2 л","Яблоки 1 кг","Добавь продукты с фото"]},
- medication:{label:"Таблетки",icon:"●",intro:"Создать напоминание о лекарстве или витамине.",placeholder:"Например: витамин D, 1 таблетка каждый день в 09:00",examples:["Витамин D в 09:00","Магний в 21:30","Таблетка один раз завтра"]}
-};
-let aiContext="today",aiPhotoData=null;
-function aiConfig(){return AI_CONTEXTS[aiContext]||AI_CONTEXTS.today}
-function renderAIContexts(){
- const grid=document.getElementById("aiContextGrid");
- grid.innerHTML=AI_CONTEXT_ORDER.map(id=>{const item=AI_CONTEXTS[id];return '<button type="button" class="ai-context-choice '+(id===aiContext?'active':'')+'" data-ai-context="'+id+'"><span>'+item.icon+'</span> '+item.label+'</button>'}).join("");
- grid.querySelectorAll("[data-ai-context]").forEach(button=>button.onclick=()=>setAIContext(button.dataset.aiContext));
+const AI_CHAT_SUGGESTIONS=["Составь меню на неделю","Создай блюдо омлет с овощами","Добавь банан 120 г","Запиши вес 64,5 кг"];
+let aiContext="today",aiPhotoData=null,aiBusy=false;
+function aiChatTime(){return new Date().toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"})}
+function ensureAIChat(){
+ if(!Array.isArray(state.aiChat)||!state.aiChat.length)state.aiChat=[{role:"assistant",text:"Привет! Напишите мне обычной фразой, что сделать. Я могу заполнить меню, создать или изменить блюдо, добавить еду, покупки, замеры и напоминания.",time:aiChatTime()}];
+ return state.aiChat;
 }
-function renderAIExamples(){
- const box=document.getElementById("aiExamples");
- box.innerHTML=aiConfig().examples.map(x=>'<button type="button" class="ai-example">'+x+'</button>').join("");
- box.querySelectorAll(".ai-example").forEach(button=>button.onclick=()=>{document.getElementById("aiPrompt").value=button.textContent;document.getElementById("aiPrompt").focus()});
+function aiAddMessage(role,text,hasPhoto=false){const list=ensureAIChat();list.push({role,text:String(text||""),hasPhoto:!!hasPhoto,time:aiChatTime()});if(list.length>40)state.aiChat=list.slice(-40);save();renderAIChat()}
+function renderAIChat(){
+ const host=document.getElementById("aiChatMessages");if(!host)return;const list=ensureAIChat();
+ host.innerHTML=list.map(m=>`<div class="ai-chat-message ${m.role==="user"?"user":"assistant"}"><div class="ai-chat-bubble">${htmlEscape(m.text).replace(/\n/g,"<br>")}${m.hasPhoto?'<span class="ai-chat-photo-note">📷 Фото приложено</span>':""}</div><span class="ai-chat-time">${htmlEscape(m.time||"")}</span></div>`).join("")+(aiBusy?'<div class="ai-chat-message assistant" id="aiTyping"><div class="ai-chat-bubble"><span class="ai-chat-typing"><i></i><i></i><i></i></span></div></div>':"");
+ requestAnimationFrame(()=>host.scrollTop=host.scrollHeight);
+ const examples=document.getElementById("aiExamples");if(examples&&!examples.dataset.ready){examples.innerHTML=AI_CHAT_SUGGESTIONS.map(x=>`<button type="button" class="ai-chat-suggestion">${x}</button>`).join("");examples.querySelectorAll("button").forEach(b=>b.onclick=()=>{const input=document.getElementById("aiPrompt");input.value=b.textContent;input.focus()});examples.dataset.ready="1"}
 }
-function setAIContext(context){
- aiContext=normalizeAIContext(context);const cfg=aiConfig();renderAIContexts();renderAIExamples();
- document.getElementById("aiContextLabel").textContent=cfg.label;
- document.getElementById("aiAssistantIntro").textContent=cfg.intro+" Можно приложить фото и добавить пояснение.";
- document.getElementById("aiPrompt").placeholder=cfg.placeholder;
- document.getElementById("aiManualButton").textContent=aiContext==="medication"?"Добавить вручную":"Открыть раздел";
- document.getElementById("aiContinueButton").textContent=aiContext==="progress"?"Заполнить замер":aiContext==="medication"?"Создать напоминание":"Подготовить черновик";
- document.getElementById("aiStatus").textContent="";
-}
-function openAIAssistant(context){
- aiContext=normalizeAIContext(context)||"today";aiPhotoData=null;
- document.getElementById("aiAssistantTitle").textContent="Помощник";
- document.getElementById("aiPrompt").value="";
- const preview=document.getElementById("aiPhotoPreview");preview.removeAttribute("src");preview.classList.remove("has-photo");
- const input=document.getElementById("aiPhotoInput");if(input)input.value="";
- setAIContext(aiContext);openModal("aiAssistantModal");
-}
+function openAIAssistant(context){aiContext=normalizeAIContext(context)||"today";ensureAIChat();renderAIChat();openModal("aiAssistantModal");setTimeout(()=>document.getElementById("aiPrompt")?.focus(),120)}
 window.openAIAssistant=openAIAssistant;
-function aiOpenManual(){
- closeModal("aiAssistantModal");
- if(aiContext==="today"){window.openPage("today");openCatalogEditor();setTimeout(()=>document.getElementById("cpName")?.focus(),30)}
- else if(aiContext==="dishes"){window.openPage("dishes");renderDishEditor(null);openModal("dishModal");setTimeout(()=>document.getElementById("inlineName")?.focus(),30)}
- else if(aiContext==="progress"){window.openPage("progress");setTimeout(()=>document.getElementById("measureWeight")?.focus(),30)}
- else if(aiContext==="shop"){window.openPage("shop");openShoppingAdd()}
- else if(aiContext==="medication"){window.openPage("today");openMedicationEditor()}
- else window.openPage("week");
-}
-function aiNumber(text,labels,unit=""){
- const normalized=String(text||"").replaceAll(",",".").toLowerCase();
- for(const label of labels){const at=normalized.indexOf(label.toLowerCase());if(at>=0){const match=normalized.slice(at+label.length).match(/[0-9]{2,3}(?:[.][0-9]+)?/);if(match)return Number(match[0])}}
- if(unit==="кг"){const match=normalized.match(/([0-9]{2,3}(?:[.][0-9]+)?)[ ]*кг/);if(match)return Number(match[1])}
+function aiClearPhoto(){aiPhotoData=null;const preview=document.getElementById("aiPhotoPreview");if(preview)preview.removeAttribute("src");document.getElementById("aiPhotoDraft")?.classList.remove("visible");const input=document.getElementById("aiPhotoInput");if(input)input.value=""}
+function aiText(v){return String(v||"").toLowerCase().replaceAll("ё","е").replace(/[^a-zа-я0-9]+/g," ").trim()}
+function aiTitle(v){return String(v||"").trim().replace(/^[«"']|[»"']$/g,"").replace(/\s+/g," ").replace(/^./,c=>c.toUpperCase())}
+function aiFindRecipe(query){
+ const q=aiText(query).replace(/\b(блюдо|рецепт|для|из|с|со|и|на)\b/g," ").replace(/\s+/g," ").trim();if(!q)return null;
+ const exact=allRecipes().find(r=>aiText(r.name)===q);if(exact)return exact;
+ const words=q.split(" ").filter(x=>x.length>2);let best=null,score=0;
+ for(const r of allRecipes()){const name=aiText(r.name),cat=aiText(r.category);let n=name.includes(q)?20:0;for(const w of words)if(name.includes(w)||cat.includes(w))n+=3;if(n>score){best=r;score=n}}
+ if(best&&score>=3)return best;
+ if(/рыб|лосос|тунц|морепродукт/.test(q))return allRecipes().find(r=>/Рыба/.test(r.category))||null;
+ if(/кур|индей/.test(q))return allRecipes().find(r=>/Курица/.test(r.category))||null;
+ if(/говяд|мяс/.test(q))return allRecipes().find(r=>/Говядина/.test(r.category))||null;
+ if(/завтрак|омлет|каша|сырник/.test(q))return allRecipes().find(r=>/Завтрак/.test(r.category))||null;
  return null;
 }
-function aiProductName(text){return text.replace(/^(найди|добавь|добавить|посчитай|подскажи|что такое|сколько)\s+/i,"").split(/[,:;\n]/)[0].replace(/\s+\d+(?:[.,]\d+)?\s*(г|гр|кг|мл|л|шт|ккал).*$/i,"").trim()}
-function aiPrefillProduct(text){openCatalogEditor();const name=aiProductName(text);if(name)document.getElementById("cpName").value=name;const patterns={cpK:/(?:ккал|калорий)\s*[:=]?\s*(\d+(?:[.,]\d+)?)/i,cpB:/(?:белки|белок|б)\s*[:=]?\s*(\d+(?:[.,]\d+)?)/i,cpF:/(?:жиры|жир|ж)\s*[:=]?\s*(\d+(?:[.,]\d+)?)/i,cpC:/(?:углеводы|углеводов|у)\s*[:=]?\s*(\d+(?:[.,]\d+)?)/i};Object.entries(patterns).forEach(([id,re])=>{const m=text.match(re);if(m)document.getElementById(id).value=m[1].replace(",",".")})}
-function aiPrefillDish(text){const photo=aiPhotoData;renderDishEditor(null);openModal("dishModal");const name=aiProductName(text)||(photo?"Новое блюдо по фото":"");const field=document.getElementById("inlineName");if(field&&name)field.value=name;if(photo){pendingRecipeMain=photo;const image=document.getElementById("inlineMainPreview");if(image)image.src=photo}}
-function aiPrefillProgress(text){const weight=aiNumber(text,["вес","вешу","весила","весит"],"кг");if(!(weight>=20&&weight<=300)){document.getElementById("aiStatus").textContent="Напишите вес, например: «вес 64,5 кг».";return false}const values={measureWeight:weight,measureWaist:aiNumber(text,["талия","талии"]),measureHips:aiNumber(text,["бёдра","бедра","бёдер","бедер"]),measureChest:aiNumber(text,["грудь","груди"])};Object.entries(values).forEach(([id,value])=>{if(value!=null)document.getElementById(id).value=String(value)});document.getElementById("measureDate").value=document.getElementById("measureDate").value||localDateISO();return true}
-function aiPrefillShopping(text){openShoppingAdd();const name=aiProductName(text.replace(/\s+(?:в|для)\s+(?:список\s+)?покупок.*$/i,""));if(name)document.getElementById("shoppingName").value=name;const amount=text.match(/(\d+(?:[.,]\d+)?)\s*(кг|г|гр|л|мл|шт)/i);if(amount){document.getElementById("shoppingQty").value=amount[1].replace(",",".");document.getElementById("shoppingUnit").value=amount[2].toLowerCase()==="гр"?"г":amount[2].toLowerCase()}const value=text.toLowerCase();document.getElementById("shoppingCategory").value=/молок|творог|сыр|кефир|йогурт/.test(value)?"Молочное":/рыб|лосос|тунец/.test(value)?"Рыба":/кур|индей|мяс|фарш/.test(value)?"Мясо":/яблок|банан|ягод|фрукт/.test(value)?"Фрукты/ягоды":/рис|греч|овся|круп/.test(value)?"Крупы":"Овощи"}
-function aiPrefillMedication(text){
- openMedicationEditor();const time=text.match(/(?:^|\s)([01]?\d|2[0-3])[:.]([0-5]\d)(?:\s|$)/);if(time)document.getElementById("medicineTime").value=String(time[1]).padStart(2,"0")+":"+time[2];
- const dose=text.match(/\d+(?:[.,]\d+)?\s*(?:мг|мл|таблет(?:ка|ки|ок)?|капсул(?:а|ы)?|шт)(?=\s|$|[,.;])/i);if(dose)document.getElementById("medicineDose").value=dose[0];
- let name=text.replace(/^(напомни(?:\s+мне)?|добавь(?:\s+напоминание)?|принять|выпить)\s*/i,"").replace(/(?:^|\s)(?:в|на)\s*([01]?\d|2[0-3])[:.]([0-5]\d).*$/i,"").replace(/\d+(?:[.,]\d+)?\s*(?:мг|мл|таблет(?:ка|ки|ок)?|капсул(?:а|ы)?|шт)(?=\s|$|[,.;])/ig,"").replace(/\s+(каждый день|по будням|по выходным).*$/i,"").trim();
- if(name)document.getElementById("medicineName").value=name;
- if(/по будням/i.test(text))setMedicineDays([1,2,3,4,5]);else if(/по выходным/i.test(text))setMedicineDays([6,0]);else if(/каждый день/i.test(text))setMedicineDays([1,2,3,4,5,6,0]);else if(/один раз|только сегодня|завтра/i.test(text)){const iso=/завтра/i.test(text)?diaryDayISO(localDateISO(),1):selectedDiaryDate;setMedicineDays([new Date(iso+"T12:00:00").getDay()])}
+function aiDishTemplate(name){
+ const n=aiText(name);let category="Курица и индейка",ingredients,steps,y,h;
+ if(/омлет|яич|яйц|каша|сырник|завтрак/.test(n)){category="Завтраки";ingredients=[{name:"Яйца",qty:3,piQty:1,faQty:2,unit:"шт"},{name:"Овощи",qty:220,piQty:90,faQty:130,unit:"г"},{name:"Сыр",qty:50,piQty:20,faQty:30,unit:"г"}];steps=[{title:"Подготовьте продукты",text:"Нарежьте овощи и взбейте яйца."},{title:"Приготовьте",text:"Обжарьте овощи, залейте яйцами и готовьте под крышкой до готовности."}];y={grams:280,k:330,b:24,f:18,c:18};h={grams:390,k:470,b:34,f:25,c:27}}
+ else if(/салат|тунц/.test(n)){category=/тунц|рыб/.test(n)?"Рыба и морепродукты":"Курица и индейка";ingredients=[{name:/тунц/.test(n)?"Тунец":"Куриное филе",qty:260,piQty:110,faQty:150,unit:"г"},{name:"Овощи",qty:420,piQty:180,faQty:240,unit:"г"},{name:"Йогурт натуральный",qty:80,piQty:35,faQty:45,unit:"г"}];steps=[{title:"Подготовьте основу",text:"Приготовьте белковую основу и нарежьте овощи."},{title:"Соберите салат",text:"Смешайте ингредиенты и заправьте натуральным йогуртом."}];y={grams:325,k:310,b:34,f:10,c:22};h={grams:455,k:440,b:48,f:14,c:32}}
+ else if(/рыб|лосос|треск|форел/.test(n)){category="Рыба и морепродукты";ingredients=[{name:"Рыбное филе",qty:360,piQty:150,faQty:210,unit:"г"},{name:"Крупа",qty:150,piQty:60,faQty:90,unit:"г"},{name:"Овощи",qty:420,piQty:180,faQty:240,unit:"г"}];steps=[{title:"Подготовьте рыбу",text:"Приправьте филе и запеките до готовности."},{title:"Сварите гарнир",text:"Отварите крупу и приготовьте овощи."},{title:"Соберите порции",text:"Разделите рыбу, гарнир и овощи между порциями."}];y={grams:390,k:440,b:38,f:16,c:38};h={grams:550,k:640,b:53,f:23,c:61}}
+ else if(/творог|яблок|десерт|перекус/.test(n)){category="Перекусы и сладкое";ingredients=[{name:"Творог 5%",qty:300,piQty:130,faQty:170,unit:"г"},{name:"Фрукты или ягоды",qty:240,piQty:100,faQty:140,unit:"г"}];steps=[{title:"Подготовьте продукты",text:"Нарежьте фрукты или подготовьте ягоды."},{title:"Соберите блюдо",text:"Соедините с творогом и подавайте."}];y={grams:230,k:260,b:23,f:8,c:25};h={grams:310,k:360,b:31,f:11,c:35}}
+ else {ingredients=[{name:"Куриное филе",qty:380,piQty:160,faQty:220,unit:"г"},{name:"Овощи",qty:420,piQty:180,faQty:240,unit:"г"},{name:"Крупа или паста",qty:160,piQty:65,faQty:95,unit:"г"}];steps=[{title:"Подготовьте продукты",text:"Нарежьте ингредиенты и подготовьте посуду."},{title:"Приготовьте основу",text:"Обжарьте или запеките белковую основу до готовности."},{title:"Добавьте гарнир",text:"Приготовьте гарнир и овощи, затем соберите порции."}];y={grams:390,k:430,b:42,f:13,c:38};h={grams:550,k:620,b:58,f:19,c:59}}
+ return {category,ingredients,steps,nutrition:{you:y,husband:h}};
 }
-document.getElementById("aiPhotoInput")?.addEventListener("change",async event=>{const file=event.target.files?.[0];if(!file)return;aiPhotoData=await fileToCompressedDataURL(file,1800,.9);const preview=document.getElementById("aiPhotoPreview");preview.src=aiPhotoData;preview.classList.add("has-photo");document.getElementById("aiStatus").textContent="Фото добавлено. Можно написать пояснение или продолжить."});
-document.getElementById("aiManualButton")?.addEventListener("click",aiOpenManual);
-document.getElementById("aiContinueButton")?.addEventListener("click",()=>{
- const text=document.getElementById("aiPrompt").value.trim();
- if(aiContext==="progress"){if(!aiPrefillProgress(text))return;closeModal("aiAssistantModal");window.openPage("progress");document.getElementById("measureWeight")?.focus();return}
- if(!text&&!aiPhotoData){document.getElementById("aiStatus").textContent="Добавьте фото или напишите, что нужно сделать.";return}
- closeModal("aiAssistantModal");
- if(aiContext==="today"){window.openPage("today");aiPrefillProduct(text)}
- else if(aiContext==="dishes"){window.openPage("dishes");aiPrefillDish(text)}
- else if(aiContext==="shop"){window.openPage("shop");aiPrefillShopping(text)}
- else if(aiContext==="medication"){window.openPage("today");aiPrefillMedication(text)}
- else{window.openPage("week");document.getElementById("randomizeWeek")?.click()}
-});
+function aiFallbackCover(name){const label=htmlEscape(aiTitle(name)).slice(0,36),svg=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620"><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#dcebd8"/><stop offset="1" stop-color="#f2d6aa"/></linearGradient></defs><rect width="900" height="620" rx="48" fill="url(#g)"/><circle cx="450" cy="275" r="185" fill="#fffaf0" stroke="#247b55" stroke-width="14"/><text x="450" y="295" text-anchor="middle" font-size="150">🍽️</text><text x="450" y="540" text-anchor="middle" font-family="serif" font-weight="700" font-size="42" fill="#173f2d">${label}</text></svg>`;return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg)}
+function aiPickDishImage(name,category,photo){if(photo)return photo;const n=aiText(name);let pool=CURATED_RECIPES.filter(r=>r.image&&r.category===category);const matched=CURATED_RECIPES.find(r=>r.image&&aiText(r.name).split(" ").some(w=>w.length>3&&n.includes(w)));if(matched)return matched.image;if(!pool.length)pool=CURATED_RECIPES.filter(r=>r.image);if(!pool.length)return aiFallbackCover(name);let hash=0;for(const ch of n)hash=(hash*31+ch.charCodeAt(0))>>>0;return pool[hash%pool.length].image}
+function aiCreateDish(name,photo){const title=aiTitle(name||"Новое блюдо"),data=aiDishTemplate(title),id="C"+Date.now();const item={id,name:title,...data,image:aiPickDishImage(title,data.category,photo),stepImages:[],freezer_ok:false,storage_days:2};state.custom.push(item);save();renderAll();return item}
+function aiMutateRecipe(recipe,patch){if(!recipe)return null;if(String(recipe.id).startsWith("C")){const item=state.custom.find(x=>x.id===recipe.id);if(item)Object.assign(item,patch)}else state.overrides[recipe.id]={...(state.overrides[recipe.id]||{}),...patch};save();renderAll();return byId(recipe.id)}
+function aiMealIndex(text){const t=aiText(text);return /завтрак/.test(t)?0:/обед/.test(t)?1:/перекус/.test(t)?2:/ужин/.test(t)?3:null}
+function aiDayIndex(text){const t=aiText(text),pairs=[[0,/понедель|\bпн\b/],[1,/вторник|\bвт\b/],[2,/сред|\bср\b/],[3,/четверг|\bчт\b/],[4,/пятниц|\bпт\b/],[5,/суббот|\bсб\b/],[6,/воскрес|\bвс\b/]];for(const [i,re] of pairs)if(re.test(t))return i;if(/сегодня/.test(t))return todayIndex(new Date(selectedDiaryDate+"T12:00:00"));return todayIndex()}
+function aiCleanDishName(text){return aiTitle(String(text||"").replace(/^(создай|добавь|придумай|приготовь|поставь|сделай)\s+/i,"").replace(/^(новое\s+)?(блюдо|рецепт)\s*/i,"").replace(/\s+(на|в)\s+(завтрак|обед|перекус|ужин).*$/i,"").replace(/\s+(в меню|на сегодня|на неделю).*$/i,"").trim())}
+function aiFoodData(name,grams,text){
+ const db=[[/банан/,{k:89,b:1.1,f:.3,c:23}],[/яблок/,{k:52,b:.3,f:.2,c:14}],[/творог/,{k:121,b:17,f:5,c:3}],[/йогурт/,{k:64,b:5,f:2.5,c:6}],[/яйц/,{k:143,b:13,f:10,c:1}],[/авокад/,{k:160,b:2,f:15,c:9}],[/хлеб/,{k:250,b:8,f:3,c:49}],[/кур/,{k:165,b:31,f:3.6,c:0}],[/сыр/,{k:350,b:25,f:27,c:2}],[/молок/,{k:60,b:3.2,f:3.2,c:4.7}]];const base=db.find(([re])=>re.test(aiText(name)))?.[1]||{k:100,b:5,f:3,c:12};const factor=(grams||100)/100;const read=(re,fallback)=>{const m=String(text||"").replaceAll(",",".").match(re);return m?Number(m[1]):Math.round(fallback*factor*10)/10};return{name:aiTitle(name),k:read(/(?:ккал|калори[йи])\s*[:=]?\s*(\d+(?:\.\d+)?)/i,base.k),b:read(/(?:белк[аи]?|\bб)\s*[:=]?\s*(\d+(?:\.\d+)?)/i,base.b),f:read(/(?:жир[ыа]?|\bж)\s*[:=]?\s*(\d+(?:\.\d+)?)/i,base.f),c:read(/(?:углевод[ыа]?|\bу)\s*[:=]?\s*(\d+(?:\.\d+)?)/i,base.c)} }
+function aiProductName(text){return aiTitle(String(text||"").replace(/^(я\s+)?(съел[аи]?|поел[аи]?|добавь|добавить|создай)\s+/i,"").replace(/^(продукт|еду|перекус)\s*/i,"").replace(/\s+\d+(?:[.,]\d+)?\s*(г|гр|кг|мл|л|шт|ккал).*$/i,"").replace(/\s+(в|на)\s+(сегодня|дневник|покупки).*$/i,"").trim())}
+function aiSaveMeasurement(text){const t=String(text).replaceAll(",","."),m=t.match(/(?:вес|вешу|весила|весит)\s*[:=]?\s*(\d{2,3}(?:\.\d+)?)/i);if(!m)return null;const weight=Number(m[1]);if(weight<20||weight>300)return null;const metric=(re)=>{const x=t.match(re);return x?Number(x[1]):null};const entry={date:selectedDiaryDate||localDateISO(),weight:Math.round(weight*10)/10,waist:metric(/тали[яи]\s*[:=]?\s*(\d+(?:\.\d+)?)/i),hips:metric(/бедр[аы]?\s*[:=]?\s*(\d+(?:\.\d+)?)/i),chest:metric(/груд[ьи]\s*[:=]?\s*(\d+(?:\.\d+)?)/i)};const who=/\bфа\b|муж/.test(aiText(text))?"husband":todayPerson;const list=state.measurements[who],at=list.findIndex(x=>x.date===entry.date);if(at>=0)list[at]=entry;else list.push(entry);save();renderAll();return {entry,who}}
+function aiShoppingCategory(name){const v=aiText(name);return /молок|творог|сыр|кефир|йогурт/.test(v)?"Молочное":/рыб|лосос|тунц/.test(v)?"Рыба":/кур|индей|мяс|фарш/.test(v)?"Мясо":/яблок|банан|ягод|фрукт/.test(v)?"Фрукты/ягоды":/рис|греч|овся|круп|макарон/.test(v)?"Крупы":"Овощи"}
+function aiAddReminder(text){const t=String(text),time=t.match(/(?:^|\s)([01]?\d|2[0-3])[:.]([0-5]\d)(?:\s|$)/),dose=t.match(/\d+(?:[.,]\d+)?\s*(?:мг|мл|таблет(?:ка|ки|ок)?|капсул(?:а|ы)?|шт)/i);let name=t.replace(/^(напомни(?:\s+мне)?|добавь(?:\s+напоминание)?|принимать|принять|выпить)\s*/i,"").replace(/(?:^|\s)(?:в|на)\s*([01]?\d|2[0-3])[:.]([0-5]\d).*$/i,"").replace(/\d+(?:[.,]\d+)?\s*(?:мг|мл|таблет(?:ка|ки|ок)?|капсул(?:а|ы)?|шт)/ig,"").replace(/\s+(каждый день|по будням|по выходным).*$/i,"").trim();if(!name)name="Лекарство";const days=/по будням/i.test(t)?[1,2,3,4,5]:/по выходным/i.test(t)?[6,0]:[1,2,3,4,5,6,0];const item={id:"M"+Date.now(),name:aiTitle(name),person:/\bфа\b|муж/i.test(t)?"husband":todayPerson,dose:dose?.[0]||"1 таблетка",time:time?String(time[1]).padStart(2,"0")+":"+time[2]:"09:00",days,active:true,taken:{}};state.reminders.push(item);save();renderMedicationReminders();return item}
+function aiMenuForDay(di){for(let mi=0;mi<4;mi++){const pool=weekRecipePool(mi);const choice=randomItem(pool);state.week[di][mi]=choice?.id||null}save();renderAll()}
+async function executeAICommand(raw,photo){
+ const text=String(raw||"").trim(),t=aiText(text);
+ if(!text&&photo)return {reply:"Фото получила. Напишите, что с ним сделать: например, «создай блюдо по этому фото» или «поставь это фото блюду Омлет». Отправлять фото повторно не нужно.",keepPhoto:true};
+ if(!text)return {reply:"Напишите, что нужно сделать."};
+ if(/^(привет|здравствуй|добрый)/.test(t))return {reply:"Привет! Могу сразу менять приложение. Например: «составь меню на неделю», «создай блюдо салат с тунцом», «замени ужин в пятницу на лосось» или «добавь витамин D в 09:00»."};
+ if(/что ты умеешь|помоги|как пользоваться/.test(t))return {reply:"Я могу создавать и редактировать блюда, вставлять обложки, заполнять и менять меню, добавлять еду и покупки, записывать вес и создавать напоминания. Просто напишите просьбу обычной фразой."};
+ const rename=text.match(/переименуй\s+(?:блюдо\s+)?[«"]?(.+?)[»"]?\s+в\s+[«"]?(.+?)[»"]?$/i);
+ if(rename){const r=aiFindRecipe(rename[1]);if(!r)return {reply:`Не нашла блюдо «${rename[1]}». Напишите его название так, как оно указано во вкладке «Блюда».`};aiMutateRecipe(r,{name:aiTitle(rename[2])});return {reply:`Готово — блюдо теперь называется «${aiTitle(rename[2])}».`}}
+ if(/(создай|сделай|добавь|замени|поставь).*(фото|картин|обложк)/.test(t)){
+   const q=text.replace(/^.*?(?:для|блюду|блюда)\s+/i,"").replace(/[.!?]+$/g,"").trim(),r=aiFindRecipe(q);if(!r)return {reply:"Не нашла это блюдо. Напишите, например: «создай фото для блюда Омлет с овощами»."};const image=aiPickDishImage(r.name,r.category,photo);aiMutateRecipe(r,{image});return {reply:`Готово — создала и вставила изображение для блюда «${r.name}».`}
+ }
+ const ingAdd=text.match(/добавь\s+ингредиент\s+(.+?)\s+в\s+(?:блюдо\s+)?(.+)$/i);
+ if(ingAdd){const r=aiFindRecipe(ingAdd[2]);if(!r)return {reply:`Не нашла блюдо «${ingAdd[2]}».`};const ingredients=[...(r.ingredients||[]),{name:aiTitle(ingAdd[1]),qty:0,piQty:0,faQty:0,unit:"г"}];aiMutateRecipe(r,{ingredients});return {reply:`Добавила «${aiTitle(ingAdd[1])}» в блюдо «${r.name}». Количество можно уточнить следующим сообщением.`}}
+ const kcalEdit=text.match(/(?:в блюде|у блюда)\s+(.+?)\s+(?:измени|сделай|поставь)\s+(?:калорийность|ккал).*?(\d{2,4})/i);
+ if(kcalEdit){const r=aiFindRecipe(kcalEdit[1]);if(!r)return {reply:`Не нашла блюдо «${kcalEdit[1]}».`};const value=Number(kcalEdit[2]),oldY=nutrition(r,"you"),oldH=nutrition(r,"husband"),ratio=value/Math.max(1,oldY.k);aiMutateRecipe(r,{nutrition:{you:{...oldY,k:value},husband:{...oldH,k:Math.round(oldH.k*ratio)}}});return {reply:`Изменила калорийность «${r.name}»: Пи — ${value} ккал, Фа — ${Math.round(oldH.k*ratio)} ккал.`}}
+ if(/(составь|заполни|создай|сделай).*(меню|рацион)/.test(t)){
+   if(/сегодня|на день/.test(t)){const di=aiDayIndex(t);aiMenuForDay(di);return {reply:`Готово — заполнила все четыре приёма пищи на ${DAYS[di].toLowerCase()}.`}}
+   randomizeWeek();return {reply:"Готово — составила меню на всю неделю: завтрак, обед, перекус и ужин на каждый день. Список покупок тоже пересчитан."}
+ }
+ const meal=aiMealIndex(t);
+ if(meal!==null&&/(замени|поставь|добавь|убери|удали)/.test(t)){
+   const di=aiDayIndex(t);if(/убери|удали/.test(t)){state.week[di][meal]=null;save();renderAll();return {reply:`Убрала ${TYPES[meal]} в ${DAYS[di].toLowerCase()}.`}}
+   let q="";if(/замени/.test(t)&&/\sна\s/i.test(text))q=text.split(/\sна\s/i).pop();else q=text.replace(/^(добавь|поставь|замени)\s+/i,"").replace(new RegExp("\\s+(?:на|в)\\s+"+TYPES[meal]+".*$","i"),"").replace(/^(на\s+)?(завтрак|обед|перекус|ужин)\s+/i,"").replace(/^(в\s+)?(понедельник|вторник|среду|четверг|пятницу|субботу|воскресенье)\s+/i,"");let r=aiFindRecipe(q);if(!r&&q.trim())r=aiCreateDish(aiCleanDishName(q),photo);if(!r)return {reply:"Не поняла, какое блюдо поставить. Напишите название после слова «на»."};state.week[di][meal]=r.id;save();renderAll();return {reply:`Готово — поставила «${r.name}» на ${TYPES[meal]} в ${DAYS[di].toLowerCase()}.`}
+ }
+ if(/(создай|придумай|добавь|сделай).*(блюдо|рецепт)/.test(t)||photo&&/(по фото|из этого|это как)/.test(t)){
+   let name=text.match(/(?:блюдо|рецепт)\s+[«"]?(.+?)[»"]?(?:\s+(?:на|в)\s+(?:завтрак|обед|перекус|ужин|меню)|$)/i)?.[1]||text.match(/(?:как|назови)\s+[«"]?(.+?)[»"]?$/i)?.[1]||aiCleanDishName(text);name=name.replace(/\s+по\s+(?:этому\s+)?фото.*$/i,"").trim()||"Новое блюдо";const item=aiCreateDish(name,photo);return {reply:`Создала блюдо «${item.name}»: добавила ингредиенты, шаги, КБЖУ для Пи и Фа и изображение. Оно уже появилось во вкладке «Блюда».`}
+ }
+ if(/(напомни|напоминан|таблет|витамин|магний|омега|лекарств)/.test(t)&&/(добавь|создай|напомни|принимать|выпить|в\s+\d)/.test(t)){const item=aiAddReminder(text);return {reply:`Готово — добавила напоминание «${item.name}» на ${item.time}.`}}
+ const measurement=aiSaveMeasurement(text);if(measurement)return {reply:`Записала вес ${String(measurement.entry.weight).replace(".",",")} кг${measurement.who==="husband"?" для Фа":" для Пи"}. Данные уже в разделе «Прогресс».`};
+ if(/(покупк|купи|список)/.test(t)&&/(добавь|купи|нужно)/.test(t)){let name=text.replace(/^(добавь|купи|нужно)\s+/i,"").replace(/\s+(в|для)\s+(список\s+)?покупок.*$/i,"");const amount=name.match(/(\d+(?:[.,]\d+)?)\s*(кг|г|гр|л|мл|шт)/i),qty=amount?Number(amount[1].replace(",",".")):0,unit=amount?(amount[2].toLowerCase()==="гр"?"г":amount[2].toLowerCase()):"";name=aiTitle(name.replace(/\s*\d+(?:[.,]\d+)?\s*(кг|г|гр|л|мл|шт).*$/i,"").trim());if(!name)return {reply:"Что добавить в покупки? Напишите название и количество."};state.manualShopping.push({name,qty,unit,category:aiShoppingCategory(name),manual:true});save();renderShop();return {reply:`Добавила «${name}${qty?` — ${qty} ${unit}`:""}» в покупки.`}}
+ if(/(цель|кбжу)/.test(t)&&/\d/.test(t)){const who=/\bфа\b|муж/.test(t)?"husband":"you",read=(re,old)=>{const m=String(text).replaceAll(",",".").match(re);return m?Number(m[1]):old},g=goalFor(who);state.goals[who]={k:read(/(?:ккал|калорий)\s*[:=]?\s*(\d+)/i,g.k),b:read(/(?:белк[аи]?|\bб)\s*[:=]?\s*(\d+)/i,g.b),f:read(/(?:жир[ыа]?|\bж)\s*[:=]?\s*(\d+)/i,g.f),c:read(/(?:углевод[ыа]?|\bу)\s*[:=]?\s*(\d+)/i,g.c)};save();renderAll();return {reply:`Обновила цели КБЖУ ${who==="husband"?"для Фа":"для Пи"}.`}}
+ if(/^(я\s+)?(съел|съела|поел|поела|добавь|добавить|создай)/.test(t)){
+   const gramsMatch=String(text).replaceAll(",",".").match(/(\d+(?:\.\d+)?)\s*(?:г|гр)\b/i),grams=gramsMatch?Number(gramsMatch[1]):100,name=aiProductName(text);if(!name)return {reply:"Напишите название продукта, например: «добавь банан 120 г»."};const item=aiFoodData(name,grams,text);
+   if(/создай.*продукт|в каталог/.test(t)){const existing=state.products.find(x=>aiText(x.name)===aiText(item.name));if(existing)Object.assign(existing,item);else state.products.push({id:"P"+Date.now(),...item});save();renderCatalog();return {reply:`Сохранила продукт «${item.name}» в каталоге.`}}
+   const who=/\bфа\b|муж/.test(t)?"husband":todayPerson;diaryDay().extras[who].push(item);save();renderToday();return {reply:`Добавила «${item.name}» в сегодняшний дневник${who==="husband"?" Фа":" Пи"}: ${item.k} ккал.`}
+ }
+ const found=aiFindRecipe(text);if(found&&/(как приготовить|рецепт|состав|ингредиент)/.test(t)){const ingredients=(found.ingredients||[]).map(x=>typeof x==="string"?x:x.name).slice(0,6).join(", ");return {reply:`«${found.name}»: ${ingredients||"ингредиенты пока не заполнены"}. Откройте блюдо во вкладке «Блюда», чтобы увидеть шаги и порции.`}}
+ return {reply:"Я не уверена, что именно изменить. Попробуйте написать действие и объект, например: «составь меню на неделю», «создай блюдо салат с тунцом», «замени ужин в пятницу на лосось» или «добавь банан 120 г»."};
+}
+async function aiSendMessage(){
+ if(aiBusy)return;const input=document.getElementById("aiPrompt"),text=input.value.trim(),photo=aiPhotoData;if(!text&&!photo)return;
+ aiAddMessage("user",text||"Отправила фото",!!photo);input.value="";input.style.height="";aiBusy=true;document.getElementById("aiContinueButton").disabled=true;renderAIChat();
+ await new Promise(r=>setTimeout(r,260));let result;try{result=await executeAICommand(text,photo)}catch(error){console.error(error);result={reply:"Не получилось выполнить это действие. Попробуйте сформулировать короче."}}
+ aiBusy=false;document.getElementById("aiContinueButton").disabled=false;aiAddMessage("assistant",result.reply);if(!result.keepPhoto)aiClearPhoto();setTimeout(()=>input.focus(),40);
+}
+document.getElementById("aiPhotoInput")?.addEventListener("change",async event=>{const file=event.target.files?.[0];if(!file)return;aiPhotoData=await fileToCompressedDataURL(file,1600,.88);const preview=document.getElementById("aiPhotoPreview");preview.src=aiPhotoData;document.getElementById("aiPhotoDraft")?.classList.add("visible")});
+document.getElementById("aiPhotoRemove")?.addEventListener("click",aiClearPhoto);
+document.getElementById("aiContinueButton")?.addEventListener("click",aiSendMessage);
+document.getElementById("aiPrompt")?.addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();aiSendMessage()}});
+document.getElementById("aiPrompt")?.addEventListener("input",event=>{event.target.style.height="auto";event.target.style.height=Math.min(116,event.target.scrollHeight)+"px"});
 document.getElementById("aiProgressButton")?.addEventListener("click",()=>openAIAssistant("progress"));
 
 let shopFilter="all";

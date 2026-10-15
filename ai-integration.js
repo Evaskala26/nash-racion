@@ -132,6 +132,9 @@
   }
 
   function install() {
+    // The current app ships a local action-capable chat. Keep this legacy
+    // bridge available for older builds, but do not replace the new send flow.
+    if (document.getElementById("aiChatMessages")) return;
     const button = document.getElementById("aiContinueButton");
     if (!button) return;
     button.addEventListener("click", event => {
