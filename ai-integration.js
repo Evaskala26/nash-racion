@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  const ENDPOINT = window.NASH_AI_ENDPOINT || "http://127.0.0.1:8787/chat";
+  const ENDPOINT = window.NASH_AI_ENDPOINT || "https://nash-racion-ai-root.containerapps.ru/chat";
   const MAX_IMAGE_CHARS = 2500000;
   const MAX_HISTORY = 8;
 
