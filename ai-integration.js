@@ -86,13 +86,15 @@
   async function askHermesCommand(prompt, photo) {
     const content = [{ type: "text", text: prompt || "Проанализируй приложенное фото и спроси, что нужно изменить." }];
     if (photo && photo.length <= MAX_IMAGE_CHARS) content.push({ type: "image_url", image_url: { url: photo, detail: "low" } });
+    const history = recentHistory();
+    if (history.at(-1)?.role === "user" && history.at(-1).content.trim() === String(prompt || "").trim()) history.pop();
     const response = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         messages: [
           { role: "system", content: systemPrompt() },
-          ...recentHistory(),
+          ...history,
           { role: "user", content: content.length === 1 ? content[0].text : content }
         ]
       })

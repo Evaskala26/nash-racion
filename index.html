@@ -4157,7 +4157,7 @@ async function executeAICommand(raw,photo){
 async function aiSendMessage(){
  if(aiBusy)return;const input=document.getElementById("aiPrompt"),text=input.value.trim(),photo=aiPhotoData;if(!text&&!photo)return;
  aiAddMessage("user",text||"Отправила фото",!!photo);input.value="";input.style.height="";aiBusy=true;document.getElementById("aiContinueButton").disabled=true;renderAIChat();
- await new Promise(r=>setTimeout(r,260));let result;try{if(typeof window.nashAskHermesCommand==="function"){try{result=await window.nashAskHermesCommand(text,photo)}catch(remoteError){console.warn("Hermes unavailable, using local fallback",remoteError)}}if(!result)result=await executeAICommand(text,photo)}catch(error){console.error(error);result={reply:"Не получилось выполнить это действие. Попробуйте ещё раз."}}
+ await new Promise(r=>setTimeout(r,260));let result;try{if(typeof window.nashAskHermesCommand==="function")result=await window.nashAskHermesCommand(text,photo);else result=await executeAICommand(text,photo)}catch(error){console.error(error);result={reply:"Не удалось связаться с умным помощником. Проверьте, что Hermes запущен, и попробуйте ещё раз — я не стала менять данные по шаблону."}}
  aiBusy=false;document.getElementById("aiContinueButton").disabled=false;aiAddMessage("assistant",result.reply);if(!result.keepPhoto)aiClearPhoto();setTimeout(()=>input.focus(),40);
 }
 document.getElementById("aiPhotoInput")?.addEventListener("change",async event=>{const file=event.target.files?.[0];if(!file)return;aiPhotoData=await fileToCompressedDataURL(file,1600,.88);const preview=document.getElementById("aiPhotoPreview");preview.src=aiPhotoData;document.getElementById("aiPhotoDraft")?.classList.add("visible")});
@@ -4430,6 +4430,6 @@ document.getElementById("saveMeasurement")?.addEventListener("click",()=>{
 function renderAll(){renderToday();renderCatalog();renderWeek();renderProgress();renderSettings();renderDishes();renderShop();syncWeekControls()}
 renderAll();
 </script>
-<script src="ai-integration.js?v=hermes-actions-1"></script>
+<script src="ai-integration.js?v=hermes-actions-2"></script>
 
 </body></html>
