@@ -4067,6 +4067,52 @@ function aiSaveMeasurement(text){const t=String(text).replaceAll(",","."),m=t.ma
 function aiShoppingCategory(name){const v=aiText(name);return /молок|творог|сыр|кефир|йогурт/.test(v)?"Молочное":/рыб|лосос|тунц/.test(v)?"Рыба":/кур|индей|мяс|фарш/.test(v)?"Мясо":/яблок|банан|ягод|фрукт/.test(v)?"Фрукты/ягоды":/рис|греч|овся|круп|макарон/.test(v)?"Крупы":"Овощи"}
 function aiAddReminder(text){const t=String(text),time=t.match(/(?:^|\s)([01]?\d|2[0-3])[:.]([0-5]\d)(?:\s|$)/),dose=t.match(/\d+(?:[.,]\d+)?\s*(?:мг|мл|таблет(?:ка|ки|ок)?|капсул(?:а|ы)?|шт)/i);let name=t.replace(/^(напомни(?:\s+мне)?|добавь(?:\s+напоминание)?|принимать|принять|выпить)\s*/i,"").replace(/(?:^|\s)(?:в|на)\s*([01]?\d|2[0-3])[:.]([0-5]\d).*$/i,"").replace(/\d+(?:[.,]\d+)?\s*(?:мг|мл|таблет(?:ка|ки|ок)?|капсул(?:а|ы)?|шт)/ig,"").replace(/\s+(каждый день|по будням|по выходным).*$/i,"").trim();if(!name)name="Лекарство";const days=/по будням/i.test(t)?[1,2,3,4,5]:/по выходным/i.test(t)?[6,0]:[1,2,3,4,5,6,0];const item={id:"M"+Date.now(),name:aiTitle(name),person:/\bфа\b|муж/i.test(t)?"husband":todayPerson,dose:dose?.[0]||"1 таблетка",time:time?String(time[1]).padStart(2,"0")+":"+time[2]:"09:00",days,active:true,taken:{}};state.reminders.push(item);save();renderMedicationReminders();return item}
 function aiEnsureDiaryWeek(){if(weekStartISO(selectedDiaryDate)!==state.currentWeekStart)setActiveWeek(selectedDiaryDate,true)}
+function hermesNumber(value,fallback=0){const n=Number(value);return Number.isFinite(n)?n:fallback}
+function hermesPerson(value){return value==="husband"?"husband":"you"}
+function hermesNutrition(value,fallback){const v=value||{},f=fallback||{};return{grams:hermesNumber(v.grams,f.grams||0),k:hermesNumber(v.k??v.kcal,f.k||0),b:hermesNumber(v.b??v.protein,f.b||0),f:hermesNumber(v.f??v.fat,f.f||0),c:hermesNumber(v.c??v.carbs,f.c||0)}}
+function hermesIngredients(value){if(!Array.isArray(value))return null;return value.filter(x=>x&&x.name).map(x=>{const pi=hermesNumber(x.piQty??x.youQty??x.qty,0),fa=hermesNumber(x.faQty??x.husbandQty,pi?Math.round(pi*1.4*10)/10:0);return{name:aiTitle(x.name),unit:String(x.unit||"г"),piQty:pi,faQty:fa,qty:Math.round((pi+fa)*10)/10}})}
+function hermesSteps(value){if(!Array.isArray(value))return null;return value.filter(Boolean).map((x,i)=>typeof x==="string"?{title:"Шаг "+(i+1),text:x}:{title:aiTitle(x.title||("Шаг "+(i+1))),text:String(x.text||x.description||"")}).filter(x=>x.text)}
+function hermesRecipe(ref,created=[]){if(!ref)return null;const direct=byId(String(ref));if(direct)return direct;const q=aiText(ref);return created.find(r=>aiText(r.name)===q)||allRecipes().find(r=>aiText(r.name)===q)||allRecipes().find(r=>aiText(r.name).includes(q)||q.includes(aiText(r.name)))||null}
+function hermesPatchRecipe(recipe,patch){if(!recipe)return null;if(String(recipe.id).startsWith("C")){const item=state.custom.find(x=>x.id===recipe.id);if(item)Object.assign(item,patch)}else state.overrides[recipe.id]={...(state.overrides[recipe.id]||{}),...patch};return byId(recipe.id)}
+function hermesDay(value){const t=aiText(value);if(!t||t==="сегодня")return todayIndex(new Date(selectedDiaryDate+"T12:00:00"));return aiDayIndex(t)}
+window.applyHermesActions=function(actions,context={}){
+ const list=Array.isArray(actions)?actions:[],created=[];let applied=0,photoUsed=false;
+ for(const action of list){if(!action||typeof action.type!=="string")continue;
+  if(action.type==="create_dish"){
+   const name=aiTitle(action.name||"Новое блюдо"),fallback=aiDishTemplate(name),ingredients=hermesIngredients(action.ingredients)||fallback.ingredients,steps=hermesSteps(action.steps)||fallback.steps;
+   const nutritionValue={you:hermesNutrition(action.nutrition?.you,fallback.nutrition.you),husband:hermesNutrition(action.nutrition?.husband,fallback.nutrition.husband)};
+   const existing=allRecipes().find(r=>aiText(r.name)===aiText(name)),image=!photoUsed&&context.photo?context.photo:aiFallbackCover(name);photoUsed=photoUsed||!!context.photo;
+   if(existing){hermesPatchRecipe(existing,{name,category:action.category||existing.category||fallback.category,ingredients,steps,nutrition:nutritionValue,image:context.photo||existing.image||image});created.push(byId(existing.id))}
+   else{const item={id:"C"+Date.now()+Math.random().toString(36).slice(2,6),name,category:action.category||fallback.category,ingredients,steps,nutrition:nutritionValue,image,stepImages:[],freezer_ok:!!action.freezer_ok,storage_days:hermesNumber(action.storage_days,2)};state.custom.push(item);created.push(item)}
+   applied++;continue;
+  }
+  if(action.type==="edit_dish"){
+   const recipe=hermesRecipe(action.dish||action.id,created);if(!recipe)continue;const patch={};if(action.name)patch.name=aiTitle(action.name);if(action.category)patch.category=action.category;const ingredients=hermesIngredients(action.ingredients),steps=hermesSteps(action.steps);if(ingredients)patch.ingredients=ingredients;if(steps)patch.steps=steps;if(action.nutrition)patch.nutrition={you:hermesNutrition(action.nutrition.you,nutrition(recipe,"you")),husband:hermesNutrition(action.nutrition.husband,nutrition(recipe,"husband"))};if(context.photo&&!photoUsed){patch.image=context.photo;photoUsed=true}hermesPatchRecipe(recipe,patch);applied++;continue;
+  }
+  if(action.type==="fill_week"){
+   aiEnsureDiaryWeek();if(Array.isArray(action.days)&&action.days.length){for(const day of action.days){const di=hermesDay(day.day),meals=day.meals||{};for(const [label,ref] of Object.entries(meals)){const mi=aiMealIndex(label),recipe=hermesRecipe(ref,created);if(mi!==null&&recipe)state.week[di][mi]=recipe.id}}}else randomizeWeek();applied++;continue;
+  }
+  if(action.type==="set_meal"){
+   aiEnsureDiaryWeek();const di=hermesDay(action.day),mi=aiMealIndex(action.meal),recipe=hermesRecipe(action.dish||action.id,created);if(mi!==null&&recipe){state.week[di][mi]=recipe.id;applied++}continue;
+  }
+  if(action.type==="add_food"){
+   const who=hermesPerson(action.person||todayPerson),grams=hermesNumber(action.grams,100);diaryDay().extras[who].push({name:aiTitle(action.name||"Продукт"),grams,k:hermesNumber(action.k??action.kcal,0),b:hermesNumber(action.b??action.protein,0),f:hermesNumber(action.f??action.fat,0),c:hermesNumber(action.c??action.carbs,0)});applied++;continue;
+  }
+  if(action.type==="add_shopping"){
+   const name=aiTitle(action.name||"");if(name){state.manualShopping.push({name,qty:hermesNumber(action.qty,0),unit:String(action.unit||""),category:aiShoppingCategory(name),manual:true});applied++}continue;
+  }
+  if(action.type==="record_measurement"){
+   const who=hermesPerson(action.person),weight=hermesNumber(action.weight,0);if(weight>=20&&weight<=300){const entry={date:selectedDiaryDate,weight,waist:action.waist==null?null:hermesNumber(action.waist),hips:action.hips==null?null:hermesNumber(action.hips),chest:action.chest==null?null:hermesNumber(action.chest)},items=state.measurements[who],at=items.findIndex(x=>x.date===entry.date);if(at>=0)items[at]=entry;else items.push(entry);applied++}continue;
+  }
+  if(action.type==="add_reminder"){
+   const days=Array.isArray(action.days)&&action.days.length?action.days.map(Number).filter(x=>x>=0&&x<=6):[1,2,3,4,5,6,0];state.reminders.push({id:"M"+Date.now()+Math.random().toString(36).slice(2,5),name:aiTitle(action.name||"Лекарство"),person:hermesPerson(action.person||todayPerson),dose:String(action.dose||"1 таблетка"),time:/^\d{2}:\d{2}$/.test(action.time||"")?action.time:"09:00",days,active:true,taken:{}});applied++;continue;
+  }
+  if(action.type==="update_goals"){
+   const who=hermesPerson(action.person),old=goalFor(who);state.goals[who]={k:hermesNumber(action.k,old.k),b:hermesNumber(action.b,old.b),f:hermesNumber(action.f,old.f),c:hermesNumber(action.c,old.c)};applied++;continue;
+  }
+ }
+ if(applied){save();renderAll()}return{applied,created};
+}
 function aiMenuForDay(di){aiEnsureDiaryWeek();for(let mi=0;mi<4;mi++){const pool=weekRecipePool(mi);const choice=randomItem(pool);state.week[di][mi]=choice?.id||null}save();renderAll()}
 async function executeAICommand(raw,photo){
  const text=String(raw||"").trim(),t=aiText(text);
@@ -4111,7 +4157,7 @@ async function executeAICommand(raw,photo){
 async function aiSendMessage(){
  if(aiBusy)return;const input=document.getElementById("aiPrompt"),text=input.value.trim(),photo=aiPhotoData;if(!text&&!photo)return;
  aiAddMessage("user",text||"Отправила фото",!!photo);input.value="";input.style.height="";aiBusy=true;document.getElementById("aiContinueButton").disabled=true;renderAIChat();
- await new Promise(r=>setTimeout(r,260));let result;try{result=await executeAICommand(text,photo)}catch(error){console.error(error);result={reply:"Не получилось выполнить это действие. Попробуйте сформулировать короче."}}
+ await new Promise(r=>setTimeout(r,260));let result;try{if(typeof window.nashAskHermesCommand==="function"){try{result=await window.nashAskHermesCommand(text,photo)}catch(remoteError){console.warn("Hermes unavailable, using local fallback",remoteError)}}if(!result)result=await executeAICommand(text,photo)}catch(error){console.error(error);result={reply:"Не получилось выполнить это действие. Попробуйте ещё раз."}}
  aiBusy=false;document.getElementById("aiContinueButton").disabled=false;aiAddMessage("assistant",result.reply);if(!result.keepPhoto)aiClearPhoto();setTimeout(()=>input.focus(),40);
 }
 document.getElementById("aiPhotoInput")?.addEventListener("change",async event=>{const file=event.target.files?.[0];if(!file)return;aiPhotoData=await fileToCompressedDataURL(file,1600,.88);const preview=document.getElementById("aiPhotoPreview");preview.src=aiPhotoData;document.getElementById("aiPhotoDraft")?.classList.add("visible")});
@@ -4384,6 +4430,6 @@ document.getElementById("saveMeasurement")?.addEventListener("click",()=>{
 function renderAll(){renderToday();renderCatalog();renderWeek();renderProgress();renderSettings();renderDishes();renderShop();syncWeekControls()}
 renderAll();
 </script>
-<script src="ai-integration.js?v=chat-20261016"></script>
+<script src="ai-integration.js?v=hermes-actions-1"></script>
 
 </body></html>
