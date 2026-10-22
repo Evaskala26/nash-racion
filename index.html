@@ -2902,6 +2902,82 @@ textarea{
  #progress .progress-body-card .progress-chart-wrap{min-height:130px}
 }
 </style>
+<style id="mobile-editor-redesign">
+/* Keep the week mascot fully visible above the fixed navigation. */
+#week .week-bottom-mascot{min-height:168px!important;margin:2px 0 54px!important;align-items:flex-start!important}
+#week .week-bottom-mascot img{width:min(100%,330px)!important;transform:translateY(-8px)}
+
+.editor-eyebrow{display:block;margin-bottom:5px;color:#438065;font-size:9px;font-weight:900;letter-spacing:.8px;text-transform:uppercase}
+.editor-close{display:grid;place-items:center;width:38px;height:38px;flex:0 0 38px;padding:0;border:1px solid #d9ded9;border-radius:12px;background:#fbf8f1;color:#315b46;font:400 24px/1 Georgia,serif;cursor:pointer}
+
+/* Product picker */
+#catalogModal{overflow:hidden!important}
+#catalogModal .catalog-sheet{box-sizing:border-box;width:min(480px,100%)!important;max-width:100%!important;max-height:95dvh!important;padding:0 14px calc(18px + env(safe-area-inset-bottom,0px))!important;overflow-x:hidden!important;background:#f5f4ef!important}
+#catalogModal .sheetHead{position:sticky;top:0;z-index:8;margin:0 -14px 13px;padding:17px 14px 13px;border-bottom:1px solid #e4ddd2;background:rgba(245,244,239,.96);backdrop-filter:blur(14px)}
+#catalogModal .sheetHead h2{font-size:25px!important}
+#catalogModal .catalog-person-note{margin-top:5px}
+#catalogModal .catalog-search-wrap{display:block;box-sizing:border-box;width:100%;max-width:100%;margin-bottom:7px}
+#catalogModal .catalog-search-wrap input{box-sizing:border-box;width:100%;max-width:100%;height:48px;border-color:#d9ded9;background:#fbf8f1}
+#catalogModal .catalog-macro-note{margin:0 2px 12px;font-size:10px}
+#catalogModal .catalog-list{box-sizing:border-box;width:100%;max-width:100%;gap:8px;overflow:hidden}
+#catalogModal .catalog-product-card{box-sizing:border-box!important;width:100%!important;max-width:100%!important;min-width:0!important;padding:12px!important;overflow:hidden;border-radius:17px!important;background:#fbf8f1!important}
+#catalogModal .catalog-product-copy{min-width:0;padding-right:62px}
+#catalogModal .catalog-product-copy>b{display:-webkit-box;overflow:hidden;min-height:18px;font-size:14px;line-height:1.25;white-space:normal;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow-wrap:anywhere}
+#catalogModal .catalog-product-tags{display:flex;align-items:center;gap:6px;min-width:0;margin-top:6px}
+#catalogModal .catalog-product-tags span{flex:0 0 auto;padding:4px 7px;border-radius:99px;background:#e5f1e9;color:#276649;font-size:8px;font-weight:900}
+#catalogModal .catalog-product-tags small{overflow:hidden;color:#78837d;font-size:9px;text-overflow:ellipsis;white-space:nowrap}
+#catalogModal .catalog-product-nutrition{display:flex;align-items:center;gap:7px;min-width:0;margin-top:8px;color:#52665b;font-size:9px;white-space:nowrap}
+#catalogModal .catalog-product-nutrition strong{color:#176743;font-size:11px}
+#catalogModal .catalog-product-nutrition small{margin-left:auto;color:#8a918d;font-size:8px}
+#catalogModal .catalog-item-tools{top:10px;right:9px;gap:4px}
+#catalogModal .catalog-item-tools button{width:27px;height:27px;border:1px solid #e2ddd3;border-radius:9px;background:#fffaf3}
+#catalogModal .catalog-product-add-row{box-sizing:border-box;width:100%;max-width:100%;grid-template-columns:84px minmax(0,1fr)!important;gap:8px;margin-top:11px}
+#catalogModal .catalog-grams{box-sizing:border-box;min-width:0;min-height:41px;background:#fffaf3}
+#catalogModal .catalog-add-product{box-sizing:border-box;width:100%;min-width:0;min-height:41px!important;overflow:hidden;padding:8px!important;border-radius:12px;font-size:11px!important;white-space:nowrap;text-overflow:ellipsis}
+#catalogModal .catalog-create{position:sticky;bottom:-8px;z-index:6;margin-top:12px!important;box-shadow:0 -10px 18px #f5f4ef}
+
+/* Shared editor surface */
+.modern-editor,#editDishModal,#productModal,#shoppingAddModal{align-items:flex-end!important;padding:0!important}
+.modern-editor .modern-editor-sheet,#editDishModal>.sheet,#productModal>.sheet,#shoppingAddModal>.sheet{box-sizing:border-box;width:min(500px,100%)!important;max-width:100%!important;max-height:96dvh!important;padding:0!important;overflow:auto!important;overflow-x:hidden!important;border-radius:27px 27px 0 0!important;background:#f5f4ef!important;box-shadow:0 -16px 44px rgba(23,63,45,.18)}
+.editor-sheet-head{position:sticky;top:0;z-index:12;align-items:flex-start!important;padding:18px 16px 14px;border-bottom:1px solid #e4ddd2;background:rgba(245,244,239,.96);backdrop-filter:blur(14px)}
+.editor-sheet-head h2{color:#173f2d;font-size:26px;line-height:1.03}
+.editor-sheet-head p{margin:6px 0 0;color:#748079;font-size:10px}
+.editor-sheet-body{padding:1px 14px calc(18px + env(safe-area-inset-bottom,0px))}
+.editor-form-section{margin:12px 0;padding:15px 13px;border:1px solid #e4ddd2;border-radius:19px;background:#fbf8f1;box-shadow:0 5px 16px rgba(57,48,35,.035)}
+.editor-section-title{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.editor-section-title>span{display:grid;place-items:center;width:29px;height:29px;flex:0 0 29px;border-radius:10px;background:#e2efe6;color:#216749;font-size:12px;font-weight:900}
+.editor-section-title div{display:grid;gap:2px}.editor-section-title b{color:#173f2d;font-size:16px}.editor-section-title small{color:#7a847e;font-size:9px}
+.modern-editor .field{margin:11px 0 0}.modern-editor .field label{display:block;margin-bottom:6px;color:#68766f;font-size:10px;font-weight:800}
+.modern-editor .search{box-sizing:border-box;width:100%;max-width:100%;min-height:47px;padding:10px 12px;border:1px solid #ded8ce!important;border-radius:13px!important;background:#fffaf3!important;color:#173126;font-size:16px;outline:none;box-shadow:none!important}
+.modern-editor .search:focus{border-color:#70a98a!important;box-shadow:0 0 0 3px #dceee3!important}
+.editor-macro-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.editor-macro-grid .field{position:relative;margin:0;padding:9px 10px 10px;border-radius:14px;background:#f5f1e9}
+.editor-macro-grid .field:before{content:"";position:absolute;left:10px;top:0;width:26px;height:3px;border-radius:0 0 4px 4px;background:#247b55}
+.editor-macro-grid .editor-kcal-field:before{background:#176743}.editor-macro-grid .editor-protein-field:before{background:#247b55}.editor-macro-grid .editor-fat-field:before{background:#e0a13c}.editor-macro-grid .editor-carb-field:before{background:#8a6bb0}
+.editor-macro-grid .search{min-height:43px;background:#fbf8f1!important}
+.editor-sticky-actions{position:sticky;bottom:-1px;z-index:11;display:grid;grid-template-columns:.85fr 1.4fr;gap:8px;margin:13px -14px -19px;padding:12px 14px calc(13px + env(safe-area-inset-bottom,0px));border-top:1px solid #e3ddd3;background:rgba(245,244,239,.97);backdrop-filter:blur(14px)}
+.editor-sticky-actions button{min-width:0;min-height:48px;border-radius:14px;font:800 12px Georgia,serif;cursor:pointer}
+.editor-secondary{border:1px solid #ddd7cd;background:#fbf8f1;color:#52655b}.editor-primary{border:0;background:#247b55;color:#fff}
+
+/* Recipe editor follows the same visual language. */
+#dishModal .dish-editor-heading{min-width:0}.dish-editor-heading h2{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#dishModal .sheetHead{align-items:flex-start!important;padding:17px 16px 14px!important}
+#dishModal .sheetHead h2{font-size:25px!important}
+#dishDetail{padding-left:12px!important;padding-right:12px!important}
+#dishDetail>.recipe-editor-section{padding:15px 13px!important;border-radius:19px!important}
+#dishDetail>.recipe-editor-section>h3{font-size:19px!important}
+#dishDetail .search{box-sizing:border-box;width:100%;max-width:100%}
+#dishDetail .recipe-edit-actions{margin-left:-12px!important;margin-right:-12px!important;padding-left:12px!important;padding-right:12px!important}
+
+@media(max-width:430px){
+ #week .week-bottom-mascot{min-height:160px!important;margin-top:-3px!important;margin-bottom:60px!important}
+ #week .week-bottom-mascot img{width:min(100%,315px)!important;transform:translateY(-10px)}
+ #catalogModal .catalog-product-copy{padding-right:58px}
+ #catalogModal .catalog-product-nutrition{gap:6px}
+ .editor-sheet-head h2{font-size:24px}
+ .editor-form-section{padding:14px 12px}
+}
+</style>
 </head>
 <body>
 <main class="app">
@@ -3287,19 +3363,26 @@ textarea{
 <div class="field"><label>Название</label><input id="pName" class="search"></div><div class="grid2"><div class="field"><label>Ккал</label><input id="pK" class="search" type="number" min="0"></div><div class="field"><label>Белки, г</label><input id="pB" class="search" type="number" min="0" step=".1"></div><div class="field"><label>Жиры, г</label><input id="pF" class="search" type="number" min="0" step=".1"></div><div class="field"><label>Углеводы, г</label><input id="pC" class="search" type="number" min="0" step=".1"></div></div><button class="btn primary" id="saveProduct" style="width:100%;margin-top:12px">Добавить</button></div></div>
 
 <div class="modal" id="catalogModal"><div class="sheet catalog-sheet">
-  <div class="sheetHead"><div><h2 style="margin:0">Добавить продукт</h2><p class="catalog-person-note">Для <b id="catalogPersonLabel">Пи</b></p></div><button class="btn" data-close="catalogModal">Закрыть</button></div>
+  <div class="sheetHead"><div><span class="editor-eyebrow">Дневник питания</span><h2 style="margin:0">Добавить продукт</h2><p class="catalog-person-note">В дневник для <b id="catalogPersonLabel">Пи</b></p></div><button class="editor-close" type="button" data-close="catalogModal" aria-label="Закрыть">×</button></div>
   <label class="catalog-search-wrap"><span>⌕</span><input id="catalogSearch" type="search" placeholder="Название или бренд…" autocomplete="off"></label>
   <p class="catalog-macro-note">Введите вес порции — КБЖУ пересчитаются автоматически.</p>
   <div id="catalogList" class="catalog-list"></div>
   <button class="btn primary catalog-create" id="catalogCreate">✦ Создать новый продукт</button>
 </div></div>
-<div class="modal" id="catalogEditModal"><div class="sheet"><div class="sheetHead"><h2 id="catalogEditTitle" style="margin:0">Создать продукт</h2><button class="btn" data-close="catalogEditModal">Закрыть</button></div>
-<div class="field"><label>Название продукта</label><input id="cpName" class="search"></div>
-<div class="field"><label>Категория</label><select id="cpCategory" class="search"><option>Овощи, фрукты и ягоды</option><option>Мясо и птица</option><option>Рыба и морепродукты</option><option>Молочные продукты</option><option>Яйца</option><option>Крупы и макароны</option><option>Хлеб и выпечка</option><option>Масла и жиры</option><option>Напитки</option><option>Сладкое</option><option>Снеки и орехи</option><option>Соусы</option><option>Готовые блюда</option><option>Детское питание</option><option>Другое</option></select></div>
-<p class="per-100-note">Укажите значения на 100 г продукта</p>
-<div class="grid2"><div class="field"><label>Ккал</label><input id="cpK" class="search" type="number" min="0"></div><div class="field"><label>Белки, г</label><input id="cpB" class="search" type="number" min="0" step=".1"></div><div class="field"><label>Жиры, г</label><input id="cpF" class="search" type="number" min="0" step=".1"></div><div class="field"><label>Углеводы, г</label><input id="cpC" class="search" type="number" min="0" step=".1"></div></div>
-<button class="btn primary" id="saveCatalogProduct" style="width:100%;margin-top:12px">Сохранить в базу</button></div></div>
-<div class="modal" id="dishModal"><div class="sheet"><div class="sheetHead"><h2 id="dishModalTitle" style="margin:0"></h2><button class="btn dish-modal-close" type="button" data-close="dishModal" aria-label="Закрыть">×</button></div><div id="dishDetail"></div></div></div>
+<div class="modal modern-editor" id="catalogEditModal"><div class="sheet modern-editor-sheet">
+  <div class="sheetHead editor-sheet-head"><div><span class="editor-eyebrow">Моя база продуктов</span><h2 id="catalogEditTitle" style="margin:0">Создать продукт</h2><p>Название, категория и КБЖУ на 100 г</p></div><button class="editor-close" type="button" data-close="catalogEditModal" aria-label="Закрыть">×</button></div>
+  <div class="editor-sheet-body">
+    <section class="editor-form-section"><div class="editor-section-title"><span>1</span><div><b>Основное</b><small>Как продукт будет называться в базе</small></div></div>
+      <div class="field"><label>Название продукта</label><input id="cpName" class="search" placeholder="Например, греческий йогурт"></div>
+      <div class="field"><label>Категория</label><select id="cpCategory" class="search"><option>Овощи, фрукты и ягоды</option><option>Мясо и птица</option><option>Рыба и морепродукты</option><option>Молочные продукты</option><option>Яйца</option><option>Крупы и макароны</option><option>Хлеб и выпечка</option><option>Масла и жиры</option><option>Напитки</option><option>Сладкое</option><option>Снеки и орехи</option><option>Соусы</option><option>Готовые блюда</option><option>Детское питание</option><option>Другое</option></select></div>
+    </section>
+    <section class="editor-form-section"><div class="editor-section-title"><span>2</span><div><b>Пищевая ценность</b><small>Все значения укажите на 100 г продукта</small></div></div>
+      <div class="editor-macro-grid"><div class="field editor-kcal-field"><label>Ккал</label><input id="cpK" class="search" type="number" min="0" placeholder="0"></div><div class="field editor-protein-field"><label>Белки, г</label><input id="cpB" class="search" type="number" min="0" step=".1" placeholder="0"></div><div class="field editor-fat-field"><label>Жиры, г</label><input id="cpF" class="search" type="number" min="0" step=".1" placeholder="0"></div><div class="field editor-carb-field"><label>Углеводы, г</label><input id="cpC" class="search" type="number" min="0" step=".1" placeholder="0"></div></div>
+    </section>
+    <div class="editor-sticky-actions"><button class="editor-secondary" type="button" data-close="catalogEditModal">Отмена</button><button class="editor-primary" type="button" id="saveCatalogProduct">Добавить продукт</button></div>
+  </div>
+</div></div>
+<div class="modal" id="dishModal"><div class="sheet"><div class="sheetHead"><div class="dish-editor-heading"><span class="editor-eyebrow">Моя база блюд</span><h2 id="dishModalTitle" style="margin:0"></h2></div><button class="btn dish-modal-close" type="button" data-close="dishModal" aria-label="Закрыть">×</button></div><div id="dishDetail"></div></div></div>
 
 <div class="modal" id="editDishModal"><div class="sheet"><div class="sheetHead"><h2 id="editDishTitle" style="margin:0">Редактировать блюдо</h2><button class="btn" data-close="editDishModal">Закрыть</button></div>
 <div class="field"><label>Название</label><input id="eName" class="search"></div><div class="field"><label>Категория</label><select id="eCategory" class="search"><option>Завтраки</option><option>Курица и индейка</option><option>Говядина</option><option>Рыба и морепродукты</option><option>Перекусы и сладкое</option></select></div>
@@ -3658,6 +3741,7 @@ function openCatalogEditor(id=null,returnTo="library"){
  catalogEditId=id;productEditorReturn=returnTo;
  const p=id?findProductById(id):null;
  catalogEditTitle.textContent=p?"Редактировать продукт":"Создать продукт";
+ document.getElementById("saveCatalogProduct").textContent=p?"Сохранить изменения":"Добавить продукт";
  cpName.value=p?.name||(returnTo==="catalog"?document.getElementById("catalogSearch")?.value.trim():"")||"";cpCategory.value=canonicalProductCategory(p?.category)||"Другое";cpK.value=p?.k??"";cpB.value=p?.b??"";cpF.value=p?.f??"";cpC.value=p?.c??"";
  openModal("catalogEditModal");setTimeout(()=>cpName.focus(),80);
 }
@@ -3675,7 +3759,7 @@ function renderCatalog(){
  if(!products.length){list.innerHTML='<div class="catalog-empty"><span>⌕</span><b>Продукт не найден</b><p>Создайте его один раз — потом он останется в общей базе.</p></div>';return}
  list.innerHTML=products.map(p=>`
   <article class="catalog-product-card">
-   <div class="catalog-product-copy"><b>${htmlEscape(p.name)}</b><div class="small">${p.brand?`${htmlEscape(p.brand)} · `:""}${htmlEscape(canonicalProductCategory(p.category))} · на 100 г: ${p.k} ккал · Б ${p.b} · Ж ${p.f} · У ${p.c}</div></div>
+   <div class="catalog-product-copy"><b>${htmlEscape(p.name)}</b><div class="catalog-product-tags"><span>${htmlEscape(canonicalProductCategory(p.category))}</span>${p.brand?`<small>${htmlEscape(p.brand)}</small>`:""}</div><div class="catalog-product-nutrition"><strong>${p.k} ккал</strong><span>Б ${p.b}</span><span>Ж ${p.f}</span><span>У ${p.c}</span><small>на 100 г</small></div></div>
    <div class="catalog-product-add-row"><label class="catalog-grams"><input data-grams="${p.id}" type="number" min="1" max="5000" step="1" value="100" inputmode="decimal"><span>г</span></label><button class="catalog-add-product" data-addp="${p.id}">＋ Добавить</button></div>
    <div class="catalog-item-tools"><button type="button" data-editp="${p.id}" aria-label="Изменить ${htmlEscape(p.name)}">✎</button><button type="button" data-delp="${p.id}" aria-label="Удалить ${htmlEscape(p.name)}">×</button></div>
   </article>`).join("")+(matches.length>products.length?`<div class="product-list-limit">Показано ${products.length} из ${matches.length}. Уточните название или бренд в поиске.</div>`:"");
@@ -4158,7 +4242,7 @@ function renderDishEditor(id){
  const r=id?byId(id):{id:null,name:"",category:"Завтраки",ingredients:[],steps:[],nutrition:{you:{grams:0,k:0,b:0,f:0,c:0},husband:{grams:0,k:0,b:0,f:0,c:0}},image:null,stepImages:[]};
  const y=nutrition(r,"you"),h=nutrition(r,"husband");
  pendingRecipeMain=r.image||null;pendingRecipeSteps=[...(r.stepImages||[])];
- dishModalTitle.textContent=id?"Редактирование рецепта":"Новое блюдо";
+ dishModalTitle.textContent=id?"Редактировать блюдо":"Новое блюдо";
  const catOpts=["Завтраки","Обеды","Ужины","Курица и индейка","Говядина","Рыба и морепродукты","Перекусы и сладкое"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("");
  const ingredients=(r.ingredients||[]).map(x=>typeof x==="string"?{name:x,qty:"",unit:"",piQty:"",faQty:""}:{...x});
  const steps=recipeSteps(r);
@@ -4201,7 +4285,7 @@ function renderDishEditor(id){
     <h3>Пи</h3><div class="inline-edit-grid"><div class="field"><label>Вес готовой порции, г</label><input id="iYGram" class="search" type="number" value="${y.grams}"></div><div class="field"><label>Ккал</label><input id="iYK" class="search" type="number" value="${y.k}"></div><div class="field"><label>Белки, г</label><input id="iYB" class="search" type="number" step=".1" value="${y.b}"></div><div class="field"><label>Жиры, г</label><input id="iYF" class="search" type="number" step=".1" value="${y.f}"></div><div class="field"><label>Углеводы, г</label><input id="iYC" class="search" type="number" step=".1" value="${y.c}"></div></div>
     <h3>Фа</h3><div class="inline-edit-grid"><div class="field"><label>Вес готовой порции, г</label><input id="iHGram" class="search" type="number" value="${h.grams}"></div><div class="field"><label>Ккал</label><input id="iHK" class="search" type="number" value="${h.k}"></div><div class="field"><label>Белки, г</label><input id="iHB" class="search" type="number" step=".1" value="${h.b}"></div><div class="field"><label>Жиры, г</label><input id="iHF" class="search" type="number" step=".1" value="${h.f}"></div><div class="field"><label>Углеводы, г</label><input id="iHC" class="search" type="number" step=".1" value="${h.c}"></div></div>
    </div>
-   <div class="recipe-edit-actions"><button class="btn" id="cancelInlineEdit">Отмена</button><button class="btn primary" id="saveInlineEdit">Сохранить изменения</button></div>`;
+   <div class="recipe-edit-actions"><button class="btn" id="cancelInlineEdit">Отмена</button><button class="btn primary" id="saveInlineEdit">${id?"Сохранить изменения":"Создать блюдо"}</button></div>`;
 
  const bindStepFiles=()=>dishDetail.querySelectorAll("[data-inline-step]").forEach(inp=>inp.onchange=async e=>{const i=+inp.dataset.inlineStep,f=e.target.files?.[0];if(!f)return;pendingRecipeSteps[i]=await fileToCompressedDataURL(f,1400,.94);const p=document.getElementById(`stepPreview${i}`);if(p)p.src=pendingRecipeSteps[i]});
  const bindRemoveIngredients=()=>dishDetail.querySelectorAll("[data-remove-ing]").forEach(b=>b.onclick=()=>{b.closest("[data-ing-row]")?.remove();reindexIngredientRows()});
