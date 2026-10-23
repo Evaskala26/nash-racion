@@ -2986,6 +2986,193 @@ textarea{
  .editor-form-section{padding:14px 12px}
 }
 </style>
+<style id="visual-refresh-v3">
+:root{
+ --v3-bg:#f4f6f1;--v3-surface:#ffffff;--v3-surface-soft:#f0f4ef;
+ --v3-ink:#13271e;--v3-muted:#68766f;--v3-line:#e4e9e4;
+ --v3-green:#155f40;--v3-green-2:#2e8c62;--v3-lime:#c8f06a;
+ --v3-protein:#4386f5;--v3-fat:#efa64b;--v3-carb:#9a70d0;
+ --v3-red:#c55454;--v3-shadow:0 10px 30px rgba(25,54,40,.075);
+ --v3-font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Inter,Arial,sans-serif;
+}
+html,body,body *,button,input,textarea,select{font-family:var(--v3-font)!important}
+.brand-wordmark,.settings-brand-wordmark{font-family:'RetracM',Georgia,serif!important}
+body{background:var(--v3-bg)!important;color:var(--v3-ink)!important;font-size:15px!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4,.title,.meal-name{font-family:var(--v3-font)!important;letter-spacing:-.025em!important}
+#today .section-title-row h2,#today .section-title-row h3,#week .week-hero-copy h1,#week .week-day-summary h2,#progress .progress-head h2,#progress .progress-card h3,#dishes .dishes-head h2,#dishes .dish-meal-head h3,#shop .shop-hero h2,#shop .shop-products-head h3{font-family:var(--v3-font)!important;letter-spacing:-.025em!important}
+button,.btn{transition:transform .16s ease,background-color .2s ease,border-color .2s ease,box-shadow .2s ease}
+button:active,.btn:active{transform:scale(.975)!important}
+.page.active{animation:v3PageIn .28s ease both}
+@keyframes v3PageIn{from{opacity:.6;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* Today: one focal number, light supporting cards, and color-coded macros. */
+#today{background:var(--v3-bg)!important;color:var(--v3-ink)!important}
+#today .today-hero{position:relative;isolation:isolate;background:radial-gradient(circle at 18% -12%,rgba(200,240,106,.30),transparent 37%),linear-gradient(165deg,#3f9a70 0%,#21744f 46%,#10452f 100%)!important;box-shadow:0 16px 34px rgba(16,69,47,.18)!important}
+#today .today-hero:after{content:"";position:absolute;z-index:-1;right:-80px;bottom:-130px;width:260px;height:260px;border:1px solid #ffffff12;border-radius:50%;box-shadow:0 0 0 36px #ffffff08,0 0 0 74px #ffffff05;pointer-events:none}
+#today .hero-brand{border:0!important;background:transparent!important;padding:0!important;box-shadow:none!important}
+#today .hero-brand .brand-wordmark{font-size:13px!important;font-weight:850!important;letter-spacing:.11em!important;color:#fff!important}
+#today .hero-brand .brand-mark-image{filter:drop-shadow(0 4px 7px rgba(7,43,28,.18))}
+#today .person-switch{background:#ffffff17!important;border:1px solid #ffffff26!important;box-shadow:inset 0 1px 0 #ffffff15!important}
+#today .person-switch .btn{font-weight:800!important;color:#eaf4ee!important}
+#today .person-switch .btn.active{background:#f7f9ef!important;color:#155f40!important;box-shadow:0 3px 10px rgba(9,48,31,.16)!important}
+#today .today-date-nav .today-date{font-size:18px!important;font-weight:760!important;letter-spacing:-.025em!important}
+#today .day-arrow{border:0!important;background:#ffffff12!important;border-radius:50%!important}
+#today .day-arrow:active{background:#ffffff25!important}
+#today .nutrition-ring-card{grid-template-columns:1fr minmax(132px,164px) 1fr!important;margin-top:2px}
+#today .nutrition-ring-bg{stroke:#ffffff24!important;stroke-width:7!important}
+#today .nutrition-ring-value{stroke:var(--v3-lime)!important;stroke-width:7!important;filter:drop-shadow(0 0 4px rgba(200,240,106,.25))}
+#today .nutrition-ring-center strong{font-size:43px!important;font-weight:780!important;letter-spacing:-.055em!important}
+#today .nutrition-ring-center span,#today .hero-side span,#today .hero-side small{color:#dbece2!important}
+#today .hero-side strong{font-size:23px!important;font-weight:760!important}
+#today .nutrition-macros{gap:7px!important;margin-top:8px!important;padding-top:12px!important;border-top:0!important}
+#today .nutrition-macro{padding:9px 10px 10px;border:1px solid #ffffff14;border-radius:13px;background:#ffffff0d}
+#today .nutrition-macro-line{gap:4px!important}
+#today .nutrition-macro-line b{font-size:10px!important;font-weight:750!important;color:#dcece2!important}
+#today .nutrition-macro-line span{font-size:11px!important;font-weight:780!important}
+#today .nutrition-macro-track{height:4px!important;margin-top:7px!important;background:#ffffff20!important}
+#today .macro-protein .nutrition-macro-track>span{background:#78a9ff!important}
+#today .macro-fat .nutrition-macro-track>span{background:#ffc66d!important}
+#today .macro-carb .nutrition-macro-track>span{background:#c5a5ed!important}
+#today .meal-section,#today .additional-card,#today .medications-card{background:transparent!important;border:0!important;box-shadow:none!important}
+#today .section-title-row h2,#today .section-title-row h3{font-size:21px!important;font-weight:800!important;color:var(--v3-ink)!important}
+#today .section-person-badge,#today #todayPersonLabel{background:#e6f2e9!important;color:var(--v3-green)!important}
+#today .today-meal{min-height:76px!important;padding:10px 12px!important;border:0!important;border-radius:18px!important;background:var(--v3-surface)!important;box-shadow:var(--v3-shadow)!important}
+#today .today-meal:last-child{border:0!important}
+#today .meal-photo{border-radius:14px!important;overflow:hidden!important;background:#eaf0eb!important;box-shadow:inset 0 0 0 1px #ffffff80!important}
+#today .meal-photo img{width:100%!important;height:100%!important;object-fit:cover!important;filter:saturate(.92) contrast(.98)!important}
+#today .meal-time{color:#829087!important;font-size:10px!important;font-weight:650!important;text-transform:lowercase}
+#today .meal-name{font-size:14px!important;font-weight:760!important;color:var(--v3-ink)!important}
+#today .meal-nutrition{color:var(--v3-muted)!important;font-size:10.5px!important}
+#today .eat-check,#today .extra-remove{border:0!important;background:#eef4ef!important;color:var(--v3-green)!important;box-shadow:none!important}
+#today .eat-check.is-eaten{background:var(--v3-green)!important;color:#fff!important}
+#today .additional-card .primary,#today .medication-add{border:0!important;background:var(--v3-green)!important;color:#fff!important;box-shadow:0 6px 16px rgba(21,95,64,.15)!important}
+#today .medication-reminder{border:0!important;border-radius:18px!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+
+/* Shared page surfaces. */
+#week,#progress,#dishes,#shop,#settings{background:var(--v3-bg)!important;color:var(--v3-ink)!important}
+#week .week-screen,#progress .progress-v2,#dishes .dishes-shell,#shop .shop-shell,#settings .settings-shell{background:var(--v3-bg)!important}
+#week h1,#progress h2,#dishes h2,#shop h2,#settings h1{font-weight:820!important;color:var(--v3-ink)!important}
+
+/* Week */
+#week .week-hero{min-height:auto!important;margin-bottom:8px!important;background:transparent!important}
+#week .week-hero-copy h1{font-size:30px!important;font-weight:820!important}
+#week .week-date-range{display:none!important}
+#week .week-date-switcher{margin:3px 0 12px!important}
+#week .week-nav-arrow{border:0!important;border-radius:50%!important;background:#e8f1ea!important;color:var(--v3-green)!important}
+#week .week-date-current{border:0!important;background:transparent!important;color:var(--v3-ink)!important;font-weight:760!important}
+#week .week-days{padding:5px;border-radius:18px;background:#e9eee9!important}
+#week .week-day-btn{border:0!important;border-radius:14px!important;background:transparent!important;color:#738078!important}
+#week .week-day-btn.active{background:var(--v3-green)!important;color:#fff!important;box-shadow:0 7px 16px rgba(21,95,64,.2)!important}
+#week .week-day-summary h2{font-size:16px!important;font-weight:790!important}
+#week .week-day-kcal span{color:var(--v3-muted)!important}
+#week .week-day-kcal b{color:var(--v3-green)!important}
+#week .week-meals-list{gap:9px!important}
+#week .week-meal-card{min-height:70px!important;padding:10px 11px!important;border:0!important;border-radius:18px!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+#week .week-meal-photo{width:58px!important;height:52px!important;border-radius:14px!important;filter:saturate(.92) contrast(.98)}
+#week .week-meal-type{color:#829087!important;font-size:9px!important;text-transform:uppercase;letter-spacing:.05em}
+#week .week-meal-name{font-size:13px!important;font-weight:760!important;color:var(--v3-ink)!important}
+#week .week-action{min-height:45px!important;border:0!important;border-radius:14px!important;background:#e8eee9!important;color:#315947!important;font-weight:760!important}
+#week .week-action-primary{background:var(--v3-green)!important;color:#fff!important;box-shadow:0 7px 18px rgba(21,95,64,.16)!important}
+#week .week-action-danger{background:#f6e9e7!important;color:#a44c48!important}
+
+/* Progress */
+#progress .progress-v2{padding-top:20px!important}
+#progress .progress-v2 .progress-head h2{font-size:30px!important;font-weight:820!important}
+#progress .progress-person,#progress .progress-period{border:0!important;background:#e8ede8!important;box-shadow:none!important}
+#progress .progress-person button.active,#progress .progress-period button.active{background:#fff!important;color:var(--v3-green)!important;box-shadow:0 4px 12px rgba(25,54,40,.08)!important}
+#progress .progress-calendar{border:0!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+#progress .progress-calendar-head button{background:#e8f1ea!important;color:var(--v3-green)!important}
+#progress .progress-calendar-day.active{background:var(--v3-green)!important;color:#fff!important;box-shadow:0 6px 14px rgba(21,95,64,.18)!important}
+#progress .progress-energy-card{position:relative;overflow:hidden;border:0!important;background:radial-gradient(circle at 90% 0,rgba(200,240,106,.23),transparent 36%),linear-gradient(155deg,#3c9870,#1d6e4b 52%,#10452f)!important;box-shadow:0 14px 30px rgba(16,69,47,.16)!important}
+#progress .progress-energy-track i{background:var(--v3-lime)!important}
+#progress .progress-energy-stats div,#progress .progress-week-stats div{border:0!important;background:#ffffff10!important}
+#progress .progress-v2 .progress-card{border:0!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+#progress .progress-macro>div:last-child{background:#edf0ed!important}
+#progress .progress-macro-protein i{background:var(--v3-protein)!important}
+#progress .progress-macro-fat i{background:var(--v3-fat)!important}
+#progress .progress-macro-carb i{background:var(--v3-carb)!important}
+#progress .progress-basal-row,#progress .progress-body-card .progress-current,#progress .progress-body-card .progress-chart-wrap{border:0!important;background:var(--v3-surface-soft)!important}
+#progress .progress-basal-row input,#progress .progress-activity-add input{border:0!important;background:#fff!important;box-shadow:inset 0 0 0 1px var(--v3-line)!important}
+#progress .progress-basal-row button,#progress .progress-activity-add button,#progress .progress-section-head>button{border:0!important;background:var(--v3-green)!important;color:#fff!important}
+#progress .progress-activity-item{border:0!important;background:var(--v3-surface-soft)!important}
+
+/* Dishes and products */
+#dishes .dishes-shell{padding-top:20px!important}
+#dishes .dishes-head h2{font-size:30px!important;font-weight:820!important}
+#dishes .dishes-head p{max-width:none!important;font-size:13px!important;line-height:1.4!important}
+#dishes .green-heart{color:var(--v3-lime)!important}
+#dishes .library-tabs{padding:4px!important;border:0!important;background:#e8ede8!important}
+#dishes .library-tab{border:0!important;background:transparent!important;color:#6b7871!important}
+#dishes .library-tab.active{background:#fff!important;color:var(--v3-green)!important;box-shadow:0 4px 12px rgba(25,54,40,.08)!important}
+#dishes .dish-search-wrap,#dishes .product-library-search{border:0!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+#dishes .dishes-add,#dishes .product-library-add{border:0!important;background:var(--v3-green)!important;color:#fff!important;box-shadow:0 7px 17px rgba(21,95,64,.14)!important}
+#dishes .dishes-filters .btn,#dishes .product-category-filter{border:0!important;background:#e8ede8!important;box-shadow:none!important;color:#607068!important}
+#dishes .dishes-filters .btn.active,#dishes .product-category-filter.active{background:var(--v3-green)!important;color:#fff!important}
+#dishes .dish-card{border:0!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+#dishes .dish-photo img{filter:saturate(.92) contrast(.98)!important}
+#dishes .dish-card h3{font-weight:770!important;color:var(--v3-ink)!important}
+#dishes .dish-kcal-chip{border:0!important;background:#e8f2eb!important;color:var(--v3-green)!important}
+#dishes .product-library-card{border:0!important;background:#fff!important;box-shadow:0 6px 18px rgba(25,54,40,.055)!important}
+#dishes .product-library-card h3{font-weight:760!important;color:var(--v3-ink)!important}
+#dishes .product-library-meta>span:first-child{background:#e8f2eb!important;color:var(--v3-green)!important}
+
+/* Shopping */
+#shop .shop-hero{position:relative;overflow:hidden;margin:0 10px 14px!important;padding:20px!important;border-radius:24px!important;background:radial-gradient(circle at 100% 0,rgba(200,240,106,.28),transparent 42%),linear-gradient(150deg,#348c63,#15583c)!important;color:#fff!important;box-shadow:0 13px 28px rgba(21,88,60,.15)!important}
+#shop .shop-hero h2,#shop .shop-hero .muted{color:#fff!important}
+#shop .shop-hero .muted{opacity:.75}
+#shop .shop-progress-card{border:0!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+#shop .shop-progress-track{background:#edf0ed!important}
+#shop .shop-progress-track #shopProgress{background:var(--v3-green)!important}
+#shop .shop-circle-fill{stroke:var(--v3-lime)!important}
+#shop .shop-filter{border:0!important;background:#e8ede8!important;color:#64726b!important}
+#shop .shop-filter.active{background:var(--v3-green)!important;color:#fff!important}
+#shop .shop-category,#shop .shop-category-head{border:0!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+#shop .shop-category-head>span:first-child{display:flex;align-items:center;gap:10px}
+#shop .shop-category-dot{width:10px;height:10px;flex:0 0 10px;border-radius:50%;background:var(--shop-tone,#6f8f7d);box-shadow:0 0 0 5px color-mix(in srgb,var(--shop-tone,#6f8f7d) 14%,transparent)}
+#shop .shop-add-main{border:0!important;background:var(--v3-green)!important;color:#fff!important;box-shadow:0 8px 20px rgba(21,95,64,.16)!important}
+
+/* Editors and sheets */
+.modal{background:rgba(11,31,22,.45)!important;backdrop-filter:blur(4px)}
+.modal .sheet,.modern-editor .modern-editor-sheet,#editDishModal>.sheet,#productModal>.sheet,#shoppingAddModal>.sheet{background:var(--v3-bg)!important}
+.sheetHead,.editor-sheet-head,#catalogModal .sheetHead{border-bottom:0!important;background:rgba(244,246,241,.94)!important}
+.sheetHead h2,.editor-sheet-head h2,#catalogModal .sheetHead h2{font-weight:820!important;color:var(--v3-ink)!important}
+.editor-close,.dish-modal-close{font-family:var(--v3-font)!important;border:0!important;background:#e8ede8!important;color:var(--v3-green)!important}
+.editor-form-section,#catalogModal .catalog-product-card,#dishDetail>.recipe-editor-section{border:0!important;background:#fff!important;box-shadow:var(--v3-shadow)!important}
+.editor-section-title>span{background:#e5f1e8!important;color:var(--v3-green)!important}
+.modern-editor .search,#catalogModal .catalog-search-wrap input,#catalogModal .catalog-amount input,#catalogModal .catalog-unit select,#catalogModal .catalog-factor-row input{font-family:var(--v3-font)!important;border:0!important;background:var(--v3-surface-soft)!important;box-shadow:inset 0 0 0 1px #e0e7e1!important}
+.editor-macro-grid .field{background:var(--v3-surface-soft)!important}
+.editor-macro-grid .editor-protein-field:before{background:var(--v3-protein)!important}.editor-macro-grid .editor-fat-field:before{background:var(--v3-fat)!important}.editor-macro-grid .editor-carb-field:before{background:var(--v3-carb)!important}
+.editor-primary,#catalogModal .catalog-add-product,#catalogModal .catalog-create{font-family:var(--v3-font)!important;border:0!important;background:var(--v3-green)!important;color:#fff!important;box-shadow:0 7px 16px rgba(21,95,64,.14)!important}
+.editor-secondary{font-family:var(--v3-font)!important;border:0!important;background:#e8ede8!important;color:#476052!important}
+#catalogModal .catalog-portion-preview{background:#eaf2ec!important;color:#315f49!important}
+
+/* Unified bottom navigation. */
+@media(max-width:700px){
+ body{background:var(--v3-bg)!important}
+ .app{padding-bottom:92px!important}
+ .mobile-bottom-nav{height:74px!important;padding:7px max(7px,env(safe-area-inset-right,0px)) calc(7px + env(safe-area-inset-bottom,0px)) max(7px,env(safe-area-inset-left,0px))!important;border-top:0!important;background:rgba(255,255,255,.93)!important;box-shadow:0 -10px 28px rgba(25,54,40,.07)!important;backdrop-filter:blur(18px) saturate(1.35)!important}
+ .mobile-bottom-nav .mobile-nav-item{height:55px!important;border-radius:15px!important;color:#7b8880!important;font-size:9.5px!important;font-weight:650!important}
+ .mobile-bottom-nav .nav-icon svg{width:22px!important;height:22px!important;stroke-width:1.8!important}
+ .mobile-bottom-nav .mobile-nav-item.active{background:#e4f0e7!important;color:var(--v3-green)!important;box-shadow:inset 0 0 0 1px #d6e7da!important}
+ #today .today-hero{margin-bottom:22px!important;padding:14px 16px 17px!important;border-radius:0 0 28px 28px!important}
+ #today .hero-topline{margin-bottom:10px!important}
+ #today .nutrition-ring-wrap{max-width:150px!important}
+ #today .nutrition-ring-center strong{font-size:38px!important}
+ #today .nutrition-macros{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ #today .meal-section,#today .additional-card,#today .medications-card{margin-left:14px!important;margin-right:14px!important}
+ #today .today-meal{grid-template-columns:56px minmax(0,1fr) 34px!important}
+ #week .week-screen,#progress .progress-v2,#dishes .dishes-shell,#shop .shop-shell{padding-left:14px!important;padding-right:14px!important}
+ #shop .shop-shell{padding-top:10px!important}
+ #shop .shop-hero{margin-left:0!important;margin-right:0!important}
+}
+@media(max-width:360px){
+ #today .nutrition-ring-card{grid-template-columns:1fr 132px 1fr!important}
+ #today .nutrition-ring-center strong{font-size:34px!important}
+ #today .hero-side strong{font-size:19px!important}
+ #today .nutrition-macro{padding:8px 7px 9px!important}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 <main class="app">
@@ -3268,8 +3455,8 @@ textarea{
           <div class="dish-filter-popover-head"><strong>Ингредиенты</strong><button type="button" id="dishFilterReset">Сбросить</button></div>
           <div class="dish-filter-popover-options">
             <button type="button" data-pop-filter="all" class="active">Все ингредиенты</button>
-            <button type="button" data-pop-filter="chicken">🍗 Курица</button>
-            <button type="button" data-pop-filter="fish">🐟 Рыба</button>
+            <button type="button" data-pop-filter="chicken">Курица</button>
+            <button type="button" data-pop-filter="fish">Рыба</button>
             <button type="button" data-pop-filter="turkey">🦃 Индейка</button>
             <button type="button" data-pop-filter="eggs">🥚 Яйца</button>
             <button type="button" data-pop-filter="cottage">🥣 Творог</button>
@@ -3280,8 +3467,8 @@ textarea{
 
       <div class="filters dishes-filters" id="dishFilters">
         <button class="btn filter active" data-dfilter="all">Все</button>
-        <button class="btn filter" data-dfilter="chicken">🍗 Курица</button>
-        <button class="btn filter" data-dfilter="fish">🐟 Рыба</button>
+        <button class="btn filter" data-dfilter="chicken">Курица</button>
+        <button class="btn filter" data-dfilter="fish">Рыба</button>
         <button class="btn filter" data-dfilter="turkey">🦃 Индейка</button>
         <button class="btn filter" data-dfilter="eggs">🥚 Яйца</button>
         <button class="btn filter" data-dfilter="cottage">🥣 Творог</button>
@@ -4495,7 +4682,7 @@ function renderShop(){
  const circleFill=document.getElementById("shopCircleFill");
  if(circleFill){const circumference=2*Math.PI*50;circleFill.style.strokeDasharray=circumference;circleFill.style.strokeDashoffset=circumference*(1-pct/100);}
  shopProgress.style.width=pct+"%";
- const emoji={Мясо:"🥩",Рыба:"🐟",Молочное:"🥛",Крупы:"🌾",Овощи:"🥬","Фрукты/ягоды":"🍓",Другое:"🛒"};
+ const categoryTone={Мясо:"#d6786e",Рыба:"#4f87c9",Молочное:"#78a8cc",Крупы:"#d7a43d",Овощи:"#4f9b6b","Фрукты/ягоды":"#b56f9f",Другое:"#829187"};
  const groups={}; vis.forEach(x=>(groups[x.category]??=[]).push(x));
  const order=["Мясо","Рыба","Молочное","Крупы","Овощи","Фрукты/ягоды","Другое"];
  const getKey=x=>x.name.toLowerCase()+"|"+(x.unit||"");
@@ -4512,7 +4699,7 @@ function renderShop(){
  if(!shopCategoriesInitialized && sortedCats.length){shopOpenCats.add(sortedCats[0]);shopCategoriesInitialized=true;}
  shopList.innerHTML=sortedCats.map((cat,idx)=>`
    <section class="shop-category ${shopOpenCats.has(cat)?'is-open':''}" data-shop-cat="${cat}">
-     <button type="button" class="shop-category-head" aria-expanded="${shopOpenCats.has(cat)}"><span>${emoji[cat]||"🛒"} ${cat}</span><span class="shop-chevron">⌄</span></button>
+     <button type="button" class="shop-category-head" aria-expanded="${shopOpenCats.has(cat)}"><span><i class="shop-category-dot" style="--shop-tone:${categoryTone[cat]||'#829187'}"></i>${cat}</span><span class="shop-chevron">⌄</span></button>
      <div class="shop-items">
        ${groups[cat].map(x=>`<label class="shop-item" draggable="true" data-drag-key="${getKey(x).replace(/"/g,"&quot;")}" data-drag-cat="${cat.replace(/"/g,"&quot;")}">
          <input type="checkbox" data-buy="${x.name.replace(/"/g,"&quot;")}" ${purchased[x.name]?"checked":""}>
