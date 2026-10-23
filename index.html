@@ -2931,9 +2931,17 @@ textarea{
 #catalogModal .catalog-product-nutrition small{margin-left:auto;color:#8a918d;font-size:8px}
 #catalogModal .catalog-item-tools{top:10px;right:9px;gap:4px}
 #catalogModal .catalog-item-tools button{width:27px;height:27px;border:1px solid #e2ddd3;border-radius:9px;background:#fffaf3}
-#catalogModal .catalog-product-add-row{box-sizing:border-box;width:100%;max-width:100%;grid-template-columns:84px minmax(0,1fr)!important;gap:8px;margin-top:11px}
-#catalogModal .catalog-grams{box-sizing:border-box;min-width:0;min-height:41px;background:#fffaf3}
-#catalogModal .catalog-add-product{box-sizing:border-box;width:100%;min-width:0;min-height:41px!important;overflow:hidden;padding:8px!important;border-radius:12px;font-size:11px!important;white-space:nowrap;text-overflow:ellipsis}
+#catalogModal .catalog-product-add-row{display:grid!important;box-sizing:border-box;width:100%;max-width:100%;grid-template-columns:72px 80px minmax(0,1fr)!important;gap:7px;margin-top:11px}
+#catalogModal .catalog-amount,#catalogModal .catalog-unit{display:grid;min-width:0;gap:4px;color:#76827b;font-size:8px;font-weight:800}
+#catalogModal .catalog-amount input,#catalogModal .catalog-unit select{box-sizing:border-box;width:100%;min-width:0;height:41px;padding:0 9px;border:1px solid #dce4de;border-radius:12px;background:#fffaf3;color:#173f2d;font:800 14px Georgia,serif;outline:none}
+#catalogModal .catalog-unit select{padding-right:22px;font-size:12px}
+#catalogModal .catalog-add-product{align-self:end;box-sizing:border-box;width:100%;min-width:0;min-height:41px!important;overflow:hidden;padding:8px!important;border-radius:12px;font-size:11px!important;white-space:nowrap;text-overflow:ellipsis}
+#catalogModal .catalog-portion-preview{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;min-height:24px;padding:6px 8px;border-radius:9px;background:#edf4ef;color:#35624c;font-size:9px}
+#catalogModal .catalog-portion-preview>span{font-weight:900;white-space:nowrap}
+#catalogModal .catalog-factor-row{display:flex;align-items:center;justify-content:flex-end;gap:3px;min-width:0;color:#66756d;white-space:nowrap}
+#catalogModal .catalog-factor-row[hidden]{display:none!important}
+#catalogModal .catalog-factor-row b{max-width:55px;overflow:hidden;color:#35624c;text-overflow:ellipsis}
+#catalogModal .catalog-factor-row input{box-sizing:border-box;width:45px;height:24px;padding:2px 4px;border:1px solid #cad9cf;border-radius:7px;background:#fffaf3;color:#173f2d;font:800 10px Georgia,serif;text-align:center;outline:none}
 #catalogModal .catalog-create{position:sticky;bottom:-8px;z-index:6;margin-top:12px!important;box-shadow:0 -10px 18px #f5f4ef}
 
 /* Shared editor surface */
@@ -3365,7 +3373,7 @@ textarea{
 <div class="modal" id="catalogModal"><div class="sheet catalog-sheet">
   <div class="sheetHead"><div><span class="editor-eyebrow">Дневник питания</span><h2 style="margin:0">Добавить продукт</h2><p class="catalog-person-note">В дневник для <b id="catalogPersonLabel">Пи</b></p></div><button class="editor-close" type="button" data-close="catalogModal" aria-label="Закрыть">×</button></div>
   <label class="catalog-search-wrap"><span>⌕</span><input id="catalogSearch" type="search" placeholder="Название или бренд…" autocomplete="off"></label>
-  <p class="catalog-macro-note">Введите вес порции — КБЖУ пересчитаются автоматически.</p>
+  <p class="catalog-macro-note">Выберите меру и количество — приложение переведёт порцию в граммы и пересчитает КБЖУ.</p>
   <div id="catalogList" class="catalog-list"></div>
   <button class="btn primary catalog-create" id="catalogCreate">✦ Создать новый продукт</button>
 </div></div>
@@ -3472,7 +3480,7 @@ const PRODUCT_CATEGORIES=["Все","Овощи, фрукты и ягоды","М�
 const PRODUCT_CATEGORY_ALIASES={"Овощи":"Овощи, фрукты и ягоды","Фрукты/ягоды":"Овощи, фрукты и ягоды","Мясо":"Мясо и птица","Рыба":"Рыба и морепродукты","Молочное":"Молочные продукты","Хлеб":"Хлеб и выпечка","Масла":"Масла и жиры"};
 function canonicalProductCategory(value){return PRODUCT_CATEGORY_ALIASES[value]||value||"Другое"}
 
-let state={week:clone(initialWeek),eaten:{you:[false,false,false,false],husband:[false,false,false,false]},extras:{you:[],husband:[]},purchased:{},overrides:{},custom:[],cooked:{},products:[],hiddenProductIds:[],manualShopping:[],shoppingOrder:{},measurements:{you:[],husband:[]},reminders:[],reminderAlerts:{},energyByDate:{},activityEntriesByDate:{},basalCalories:{you:0,husband:0},currentWeekId:"current",weekHistory:[],currentWeekStart:null};
+let state={week:clone(initialWeek),eaten:{you:[false,false,false,false],husband:[false,false,false,false]},extras:{you:[],husband:[]},purchased:{},overrides:{},custom:[],cooked:{},products:[],hiddenProductIds:[],productMeasures:{},manualShopping:[],shoppingOrder:{},measurements:{you:[],husband:[]},reminders:[],reminderAlerts:{},energyByDate:{},activityEntriesByDate:{},basalCalories:{you:0,husband:0},currentWeekId:"current",weekHistory:[],currentWeekStart:null};
 try{
   const raw=localStorage.getItem(KEY)||sessionStorage.getItem(KEY);
   const s=raw?JSON.parse(raw):null;
@@ -3481,6 +3489,7 @@ try{
 state.products=Array.isArray(state.products)?state.products:[];
 state.products=state.products.filter(Boolean).map((p,i)=>({id:p.id||"P-MIGRATED-"+i,name:String(p.name||"Продукт"),brand:String(p.brand||""),category:canonicalProductCategory(p.category),k:Number(p.k)||0,b:Number(p.b)||0,f:Number(p.f)||0,c:Number(p.c)||0,source:p.source||"manual"}));
 state.hiddenProductIds=Array.isArray(state.hiddenProductIds)?state.hiddenProductIds:[];
+state.productMeasures=state.productMeasures&&typeof state.productMeasures==="object"&&!Array.isArray(state.productMeasures)?state.productMeasures:{};
 if((Number(state.productSeedVersion)||0)<1){
  const known=new Set(state.products.map(p=>p.name.trim().toLocaleLowerCase("ru")));
  DEFAULT_PRODUCTS.forEach(p=>{if(!known.has(p.name.toLocaleLowerCase("ru")))state.products.push({...p,category:canonicalProductCategory(p.category),brand:"",source:"starter"})});
@@ -3725,6 +3734,53 @@ function renderToday(){
 
 let productTarget="you",productKind="product",catalogEditId=null,productEditorReturn="library",libraryActiveTab="dishes",libraryProductCategory="Все";
 function productRound(value,digits=1){const p=10**digits;return Math.round((Number(value)||0)*p)/p}
+const PRODUCT_MEASURES=[{id:"g",label:"г"},{id:"ml",label:"мл"},{id:"tsp",label:"ч. л."},{id:"tbsp",label:"ст. л."},{id:"cup",label:"стакан"},{id:"piece",label:"шт."}];
+function productMeasureLabel(unit){return PRODUCT_MEASURES.find(item=>item.id===unit)?.label||"г"}
+function productMeasureNumber(value,digits=1){return productRound(value,digits).toLocaleString("ru-RU",{maximumFractionDigits:digits})}
+function productMeasureDensity(product){
+ const text=`${product?.name||""} ${product?.category||""}`.toLocaleLowerCase("ru");
+ if(/масл|майонез/.test(text))return .92;
+ if(/м[ёе]д|сироп|сгущ/.test(text))return 1.35;
+ if(/молок|кефир|йогурт|сливк/.test(text))return 1.03;
+ if(/мука|какао/.test(text))return .58;
+ if(/сахар/.test(text))return .85;
+ return 1;
+}
+function defaultProductMeasureGrams(product,unit){
+ if(unit==="g")return 1;
+ const density=productMeasureDensity(product),text=`${product?.name||""} ${product?.category||""}`.toLocaleLowerCase("ru");
+ if(unit==="ml")return density;
+ if(unit==="tsp")return productRound(5*density,1);
+ if(unit==="tbsp")return productRound(15*density,1);
+ if(unit==="cup"){
+   if(/мука|какао/.test(text))return 130;
+   if(/сахар/.test(text))return 200;
+   if(/круп|рис|греч|макарон|хлоп/.test(text))return 180;
+   if(/ягод/.test(text))return 140;
+   return productRound(200*density,0);
+ }
+ if(unit==="piece"){
+   if(/яйц/.test(text))return 55;
+   if(/банан/.test(text))return 120;
+   if(/яблок|груш/.test(text))return 170;
+   if(/авокадо/.test(text))return 180;
+   if(/огур|помидор|томат/.test(text))return 120;
+   if(/хлеб|батон|тост/.test(text))return 30;
+   if(/сыр/.test(text))return 25;
+   return 100;
+ }
+ return 1;
+}
+function productMeasureFactor(product,unit){
+ const stored=Number(state.productMeasures?.[product.id]?.[unit]);
+ return stored>0?stored:defaultProductMeasureGrams(product,unit);
+}
+function rememberProductMeasure(product,unit,factor){
+ if(unit==="g"||!(factor>0))return;
+ state.productMeasures[product.id]=state.productMeasures[product.id]&&typeof state.productMeasures[product.id]==="object"?state.productMeasures[product.id]:{};
+ state.productMeasures[product.id][unit]=productRound(factor,2);
+ save();
+}
 function allProductRecords(){
  const hidden=new Set(state.hiddenProductIds||[]),overridden=new Set(state.products.map(p=>p.id));
  return [...state.products,...BUILTIN_PRODUCTS.filter(p=>!hidden.has(p.id)&&!overridden.has(p.id))];
@@ -3760,13 +3816,30 @@ function renderCatalog(){
  list.innerHTML=products.map(p=>`
   <article class="catalog-product-card">
    <div class="catalog-product-copy"><b>${htmlEscape(p.name)}</b><div class="catalog-product-tags"><span>${htmlEscape(canonicalProductCategory(p.category))}</span>${p.brand?`<small>${htmlEscape(p.brand)}</small>`:""}</div><div class="catalog-product-nutrition"><strong>${p.k} ккал</strong><span>Б ${p.b}</span><span>Ж ${p.f}</span><span>У ${p.c}</span><small>на 100 г</small></div></div>
-   <div class="catalog-product-add-row"><label class="catalog-grams"><input data-grams="${p.id}" type="number" min="1" max="5000" step="1" value="100" inputmode="decimal"><span>г</span></label><button class="catalog-add-product" data-addp="${p.id}">＋ Добавить</button></div>
+   <div class="catalog-product-add-row" data-portion-row="${p.id}"><label class="catalog-amount"><span>Количество</span><input data-amount type="number" min="0.1" max="5000" step="0.1" value="100" inputmode="decimal"></label><label class="catalog-unit"><span>Мера</span><select data-unit>${PRODUCT_MEASURES.map(item=>`<option value="${item.id}">${item.label}</option>`).join("")}</select></label><button class="catalog-add-product" data-addp="${p.id}">＋ Добавить</button><div class="catalog-portion-preview"><span data-portion-summary>100 г · ${productMeasureNumber(p.k,0)} ккал</span><label class="catalog-factor-row" data-factor-row hidden>1 <b data-factor-label>г</b> = <input data-factor type="number" min="0.1" max="5000" step="0.1" value="1" inputmode="decimal"> г</label></div></div>
    <div class="catalog-item-tools"><button type="button" data-editp="${p.id}" aria-label="Изменить ${htmlEscape(p.name)}">✎</button><button type="button" data-delp="${p.id}" aria-label="Удалить ${htmlEscape(p.name)}">×</button></div>
   </article>`).join("")+(matches.length>products.length?`<div class="product-list-limit">Показано ${products.length} из ${matches.length}. Уточните название или бренд в поиске.</div>`:"");
+ list.querySelectorAll("[data-portion-row]").forEach(row=>{
+  const p=findProductById(row.dataset.portionRow);if(!p)return;
+  const amountInput=row.querySelector("[data-amount]"),unitSelect=row.querySelector("[data-unit]"),factorInput=row.querySelector("[data-factor]"),factorRow=row.querySelector("[data-factor-row]"),factorLabel=row.querySelector("[data-factor-label]"),summary=row.querySelector("[data-portion-summary]");
+  const updatePortion=(resetAmount=false,resetFactor=false)=>{
+   const unit=unitSelect.value;
+   if(resetAmount)amountInput.value=(unit==="g"||unit==="ml")?100:1;
+   if(resetFactor)factorInput.value=productMeasureNumber(productMeasureFactor(p,unit),2).replace(/\s/g,"").replace(",",".");
+   const amount=Math.max(.1,Number(amountInput.value)||((unit==="g"||unit==="ml")?100:1)),measureFactor=unit==="g"?1:Math.max(.1,Number(factorInput.value)||productMeasureFactor(p,unit)),grams=amount*measureFactor,kcal=p.k*grams/100;
+   factorRow.hidden=unit==="g";factorLabel.textContent=productMeasureLabel(unit);
+   summary.textContent=`${unit==="g"?"":"≈ "}${productMeasureNumber(grams,1)} г · ${productMeasureNumber(kcal,0)} ккал`;
+  };
+  unitSelect.onchange=()=>updatePortion(true,true);
+  amountInput.oninput=()=>updatePortion();
+  factorInput.oninput=()=>updatePortion();
+  factorInput.onchange=()=>{rememberProductMeasure(p,unitSelect.value,Number(factorInput.value));updatePortion()};
+  updatePortion(false,true);
+ });
  list.querySelectorAll("[data-addp]").forEach(b=>b.onclick=()=>{
-  const p=findProductById(b.dataset.addp);if(!p)return;
-  const grams=Math.max(1,Number(list.querySelector(`[data-grams="${p.id}"]`)?.value)||100),factor=grams/100;
-  diaryDay().extras[productTarget].push({productId:p.id,name:p.name,grams:productRound(grams,0),k:productRound(p.k*factor,0),b:productRound(p.b*factor),f:productRound(p.f*factor),c:productRound(p.c*factor)});
+  const p=findProductById(b.dataset.addp),row=b.closest("[data-portion-row]");if(!p||!row)return;
+  const amount=Math.max(.1,Number(row.querySelector("[data-amount]")?.value)||100),unit=row.querySelector("[data-unit]")?.value||"g",measureFactor=unit==="g"?1:Math.max(.1,Number(row.querySelector("[data-factor]")?.value)||productMeasureFactor(p,unit)),grams=Math.min(50000,amount*measureFactor),factor=grams/100;
+  diaryDay().extras[productTarget].push({productId:p.id,name:p.name,grams:productRound(grams,1),measureAmount:productRound(amount,1),measureUnit:unit,measureFactor:productRound(measureFactor,2),k:productRound(p.k*factor,0),b:productRound(p.b*factor),f:productRound(p.f*factor),c:productRound(p.c*factor)});
   save();closeModal("catalogModal");renderToday();showFoodStickerFor(productTarget);
  });
  list.querySelectorAll("[data-editp]").forEach(b=>b.onclick=()=>{closeModal("catalogModal");openCatalogEditor(b.dataset.editp,"catalog")});
